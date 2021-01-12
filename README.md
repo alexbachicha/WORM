@@ -18,4 +18,5 @@ WORM is an application that allows users to search for books by entering a speci
 - [Tesseract.js](https://blog.logrocket.com/how-to-extract-text-from-an-image-using-javascript-8fe282fb0e71/)
 - Node
 - Express
-- Handlebars.js 
+- Handlebars.js
+- [Google Books API](https://developers.google.com/books)
