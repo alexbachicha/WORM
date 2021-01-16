@@ -9,12 +9,12 @@ const searchBooks = () => {
 
     $.ajax({
         url: "https://www.googleapis.com/books/v1/volumes?q=" + searchParam + book_API_key,
-        async: false,
+        async: true,
         dataType: "jsonp",
-        success: function (json) {
+        success: function (jsonp) {
 
-            console.log(json)
-            $('#results').text(json)
+            console.log(jsonp)
+            $('#results').text(jsonp)
 
         },
         type: "GET"

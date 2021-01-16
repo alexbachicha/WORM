@@ -15,6 +15,13 @@
     {{#each Bookshelves }}
     <h2>{{author}}</h2>
     {{/each}}
+
+    <form id='searchForm' class='form'>
+    <input id="searchBooks" placeholder="Title or Author"></input>
+    <input type="submit" value="Submit"></form>
+    <div id="results"></div>
+
+
     <form action="/Bookshelves" method="Post">
     <div class="form-group">
         <label for="author">Author</label>

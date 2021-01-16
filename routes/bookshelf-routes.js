@@ -29,4 +29,26 @@ module.exports = (app) => {
       res.redirect("Bookshelves");
           })
       });
+
+
+    app.post("/Bookshelves", isAuthenticated, (req, res) => {
+
+
+        var searchParam = $('#searchBooks').val().trim()
+
+        console.log("searching for books" + searchParam)
+
+        $.ajax({
+            url: "https://www.googleapis.com/books/v1/volumes?q=" + searchParam + book_API_key,
+            async: true,
+            dataType: "jsonp",
+            success: function (jsonp) {
+
+                console.log(jsonp)
+                $('#results').text(jsonp)
+
+            },
+            type: "GET"
+        })
+    })
 };
