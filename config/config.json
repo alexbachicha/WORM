@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "omnicode",
-    "database": "users",
+    "database": "bookshelf",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
