@@ -1,0 +1,39 @@
+body{
+    
+}
+
+/* Banner Statement */
+.center{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rozha One', serif;
+}
+
+.bannerBorder{
+  border: 5px solid white;
+}
+
+
+/* Main Body */
+#leftHalf {
+  background: url("books.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50%;
+  position: fixed;
+  left: 0px;
+  height: 100%;
+}
+
+#rightHalf {
+  background:lightpink;
+  width: 50%;
+  position: fixed;
+  right: 0px;
+  height: 100%;
+}
+
