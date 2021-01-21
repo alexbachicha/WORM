@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         author:  {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         datePublished : {
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         pages:  {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         thumbnail: {
                 type: DataTypes.STRING,

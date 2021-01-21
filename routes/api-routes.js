@@ -52,29 +52,6 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/testsearch", (req, res) => {
-
-
-    var searchParam = $('#searchBooks').val().trim()
-
-    console.log("searching for books" + searchParam)
-
-    $.ajax({
-      url: "https://www.googleapis.com/books/v1/volumes?q=" + searchParam + book_API_key,
-      async: false,
-      dataType: "jsonp",
-      success: function (json) {
-
-          console.log(json)
-          $('#results').text(json)
-
-      },
-      type: "GET"
-  })
-
-
-
-  })
 };
    // Route for getting some data about our user to be used client side
 //   app.get("/api/user_data", (req, res) => {

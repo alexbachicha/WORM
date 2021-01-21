@@ -9,8 +9,8 @@ $(document).ready(() => {
   signUpForm.on("submit", event => {
     event.preventDefault();
     const userData = {
-      email: emailInput.val().trim(),
       name: nameInput.val().trim(),
+      email: emailInput.val().trim(),
       password: passwordInput.val().trim()
     };
 
@@ -27,8 +27,8 @@ $(document).ready(() => {
   // Otherwise we log any errors
   function signUpUser({email, password, name}) {
     $.post("/api/signup", {
-      name,
-      email: email,
+      name: name,
+     email: email,
       password: password
     })
       .then(() => {
