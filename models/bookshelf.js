@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         datePublished : {
             type: DataTypes.DATE,
             allowNull: false
@@ -17,13 +21,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        thumbnail: {
+                type: DataTypes.STRING,
+                allowNull: false
+        }
     })
 
     Bookshelf.associate = (models) => {
         Bookshelf.belongsTo(models.User, {
             foreignKey: {
-                allowNull: false
-            }})
+            allowNull: false
+            }
+        })
     }
 
     return Bookshelf
