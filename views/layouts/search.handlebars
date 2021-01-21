@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/stylesheets/style.css">
-	    <link rel="stylesheet" href="../../public/stylesheets/search.css"> 
+    <link rel="stylesheet" href="../../public/stylesheets/search.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -21,10 +20,10 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0 navbar-right">
             <li class="nav-item">
-              <a class="nav-link" href="../homePage.html">Home</a>
+              <a class="nav-link" href="homePage.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../bookshelf.html">My Bookshelf</a>
+              <a class="nav-link" href="bookshelf.html">My Bookshelf</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="search.html">Search <span class="sr-only">(current)</span></a>
@@ -33,7 +32,40 @@
         </div>
       </nav> 
 
-	  {{ body}}
+    <!-- body -->
 
+    <!-- hero image -->
+    <div class="hero-image">
+        <div class="hero-text">
+          <h1>Find your next book</h1>
+        </div>
+    </div>
+
+    <pre> </pre>
+
+    <!-- search bar -->
+
+     <form id='searchForm' action="/search" method="POST" class='form'>
+    <input id="searchBooks" type="text" placeholder="Title or Author" name="searchTerm"></input>
+      <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+
+   <!--<ul class="list-group list-group-flush"> -->
+    
+    {{#each bookArray }}
+
+    <h2>{{this.title}}</h2>
+    <img src="{{this.thumbnail}}">
+    <h3>{{this.description }}</h3>
+    <h3>{{this.pages}}</h3>
+    <h3>{{this.datePublished }} </h3>
+  
+    <li class="list-group-item"></li>
+    <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
+    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
+    <h4>id: {{this.id}}</h4>
+    {{/each}}
+
+    
 </body>
 </html>

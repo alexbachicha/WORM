@@ -59,7 +59,6 @@ module.exports = function(app) {
 
     console.log("searching for books" + searchParam)
 
-
     $.ajax({
       url: "https://www.googleapis.com/books/v1/volumes?q=" + searchParam + book_API_key,
       async: false,
