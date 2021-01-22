@@ -22,6 +22,8 @@ var bookEntry
 // global user variable, will need to save to storage later
 var thisUser = [{}]
 
+var chosenBooks = [{}]
+
 
 
 
@@ -46,7 +48,7 @@ module.exports = (app) => {
 
     app.get("/search", isAuthenticated, (req, res) => {
 
-        res.render('search', {thisUser, bookArray});
+        res.render('search', {chosenBooks, bookArray});
     })
 
 
@@ -89,6 +91,7 @@ module.exports = (app) => {
        var addThumbnail = bookArray[req.params.id].thumbnail
 
   
+       console.log(addTitle + addAuthor + addDescription + addPublishedDate + addPages + addThumbnail)
 
      //  db.Sequelize.Bookshelves.sync()
 
@@ -100,7 +103,7 @@ module.exports = (app) => {
     //    thisUser.create({bookArray})
 
   
-       thisUser = db.Bookshelf.create({ 
+       /*thisUser =*/ db.Bookshelf.create({ 
                     title: addTitle, 
                     author: addAuthor,
                     description: addDescription,
@@ -110,21 +113,53 @@ module.exports = (app) => {
           //          createdAt : req.user.createdAt,
            //         updatedAt : req.user.updatedAt,
                     UserId: req.user.id
+                    }).then(function(chosenBooks){
+                      res.render('search', {bookArray, chosenBooks})
                     })
                     //.then(function(dbBookShelf) {
                     //    res.json(dbBookshelf)
                    // }).catch(function(err) {
                     //    res.json(err);
                    // });
-
+         //          var addTitle = thisUser.title
+         //          var addAuthor = thisUser.author
+            ///       var addDescription = thisUser.description
+        //           var addPublishedDate = thisUser.datePublished
+           //        var addPages = thisUser.pages
+          //         var addThumbnail = thisUser.thumbnail
                  //  db.Bookshelf.save()
-                 console.log(addPages + addTitle)
 
+              //   thisUser = db.Bookshelf.findOne()
+
+     /*         db.Bookshelf.findAll({}).then(function(chosenBooks) {
+                // We have access to the todos as an argument inside of the callback function
+                res.json(chosenBooks);
+
+              })
+*/
+              //   console.log("created database entry, now what")
+
+               //  console.log("adding to database" + thisUser.title)
+
+              //   console.log(JSON.stringify(thisUser, null, 5))
                  
-                 thisUser = db.Bookshelf.findAll()
 
+            /*     chosenBooks = { title: addTitle,
+                                  author : thisUser.author,
+                                  description : thisUser.description,
+                                  datePublished: thisUser.datePublished,
+                                  pages : thisUser.pages,
+                                  thumbnail : thisUser.thumbnail }
+*/
+                 
+          //  thisUser = db.Bookshelf.findAll()
+
+          //  chosenBooks = db.Bookshelf.findAll()
+
+         //   console.log(chosenBooks.toJSON())
+            console.log(thisUser.title)
                   
-                   res.render('search', {bookArray, thisUser})
+           //   res.render('search', {bookArray, chosenBooks})
 
     })
 
@@ -163,7 +198,7 @@ module.exports = (app) => {
                 var thumbnail = item.volumeInfo.imageLinks.thumbnail;
 
         //       console.log(item.volumeInfo.title)
-                console.log(item.volumeInfo.authors[0])
+         //       console.log(item.volumeInfo.authors[0])
         //        console.log(item.volumeInfo.description)
         //        console.log(item.volumeInfo.publishedDate)
         //        console.log(item.volumeInfo.pageCount)
