@@ -22,34 +22,78 @@ var bookEntry
 // global user variable, will need to save to storage later
 var thisUser = [{}]
 
-var chosenBooks = [{}]
+var chosenBooksArray = [{}]
+
+var savedBookShelf = []
+
+var addFromSearch
 
 
 
 
 module.exports = (app) => {
 
+
+  app.get("/Bookshelves", isAuthenticated, (req, res) => {
+    res.render("Bookshelves")
+  })
+
+  app.get("/search.html", isAuthenticated, (req, res) => {
+    res.render("search")
+  })
+
     // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/Bookshelves", isAuthenticated, (req, res) => {
-      db.Bookshelf.findAll({
-          where: {
-              userId: req.user.id
-          }
-      }).then((bookshelves) => {
-    res.render("search", {thisUser});
-        })
-    });
+      db.Bookshelf.findAll({}).then( function(books) {
+      //  books = books.values()
+        console.log("get route for bookshelves" )
 
-    app.get("/bookshelf.html", isAuthenticated, (req, res) => {
+        savedBookShelf = []
+        
+        books.forEach(item => {
+          var tempEntry = {
+                          title: item.title,
+                          author :item.author,
+                          description : item.description,
+                          datePublished: item.datePublished,
+                          pages : item.pages,
+                          thumbnail : item.thumbnail }
+                          savedBookShelf.push(tempEntry)
+                          console.log(tempEntry)
+          } )
 
-        res.sendFile(path.join(__dirname, "../public/bookshelf.html"));
-    })
+          
+        res.render("Bookshelves", {savedBookShelf}) })
+        
+        //res.json(books) })
+        //
+        
+  })
+
+
+    
+
+   // app.get("/bookshelf.html", isAuthenticated, (req, res) => {
+
+//        res.sendFile(path.join(__dirname, "../public/bookshelf.html"));
+//    })
 
     app.get("/search", isAuthenticated, (req, res) => {
 
-        res.render('search', {chosenBooks, bookArray});
+      //db.Bookshelf.findAll({}).then(function(chosenBooks) {}
+      res.render('search');
     })
+
+
+     //   chosenBooks.toJSON()
+
+   //     console.log("get route" + chosenBooks.title)
+  
+
+ //     })
+        
+  //  })
 
 
   /*  app.get("/Bookshelves", isAuthenticated, (req, res) => {
@@ -66,7 +110,6 @@ module.exports = (app) => {
       res.redirect("Bookshelves");
           })
       });
-
 */
 
       app.delete("/search/:id", isAuthenticated, (req, res) => {
@@ -76,6 +119,10 @@ module.exports = (app) => {
         res.render('search', {thisUser, bookArray})
 
 
+      })
+
+      app.delete("/Bookshelves/:id", isAuthenticated, (req, res) => {
+        db.Bookshelf.destroy()
       })
 
       app.post("/search/:id", isAuthenticated, (req, res) => {
@@ -91,7 +138,7 @@ module.exports = (app) => {
        var addThumbnail = bookArray[req.params.id].thumbnail
 
   
-       console.log(addTitle + addAuthor + addDescription + addPublishedDate + addPages + addThumbnail)
+    //   console.log(addTitle + addAuthor + addDescription + addPublishedDate + addPages + addThumbnail)
 
      //  db.Sequelize.Bookshelves.sync()
 
@@ -114,8 +161,13 @@ module.exports = (app) => {
            //         updatedAt : req.user.updatedAt,
                     UserId: req.user.id
                     }).then(function(chosenBooks){
-                      res.render('search', {bookArray, chosenBooks})
+
+                      res.render('search', {chosenBooks, bookArray})
                     })
+
+                     // chosenBooksArray.push(chosenBooks) */
+               //       console.log(chosenBooks.title + chosenBooks.pages)
+
                     //.then(function(dbBookShelf) {
                     //    res.json(dbBookshelf)
                    // }).catch(function(err) {
@@ -163,6 +215,7 @@ module.exports = (app) => {
 
     })
 
+    // search for books
       app.post("/search", isAuthenticated, (req, res) => {
 
         console.log("hit this route")
