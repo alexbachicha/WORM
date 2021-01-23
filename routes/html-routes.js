@@ -27,6 +27,10 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
   });
 
+  app.get("/search.html", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../views/layouts/search.handlebars"));
+  });
+
   app.get("/testsearch", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {

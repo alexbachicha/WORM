@@ -23,7 +23,7 @@
               <a class="nav-link" href="homePage.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="bookshelf.html">My Bookshelf</a>
+              <a class="nav-link" href="Bookshelves">My Bookshelf</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="search.html">Search <span class="sr-only">(current)</span></a>
@@ -46,19 +46,20 @@
 
 <h4>Current Shelf (temp)</h4>
     
-    {{#each chosenBooks }}
+    {{#each savedBookShelf}}
     <h2>{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
     <h3>{{this.description }}</h3>
     <h3>{{this.pages}}</h3>
     <h3>{{this.datePublished }} </h3>
-  
-    <li class="list-group-item"></li>
+    {{/each}}
+  <!--  <li class="list-group-item"></li> -->
     <form id='searchForm' action="/search/{{this.id}}" method="DELETE" class='form'>
     <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
-    <h4>id: {{this.id}}</h4>
+    <h4>id: {{this.id}}</h4> 
 
-    {{/each}}
+
+ <h2>End of SHelf</h2>
 
     <!-- search bar -->
 
@@ -70,18 +71,18 @@
    <!--<ul class="list-group list-group-flush"> -->
     
     {{#each bookArray }}
-
+  <li class="list-group-item"></li>
     <h2>{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
     <h3>{{this.description }}</h3>
     <h3>{{this.pages}}</h3>
     <h3>{{this.datePublished }} </h3>
-  
-    <li class="list-group-item"></li>
+ 
     <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
     <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
-    <h4>id: {{this.id}}</h4>
-    {{/each}}
+    <h4>id: {{this.id}}</h4> </li>
+
+    {{/each }}
 
     
 </body>
