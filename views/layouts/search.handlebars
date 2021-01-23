@@ -43,6 +43,23 @@
 
     <pre> </pre>
 
+
+<h4>Current Shelf (temp)</h4>
+    
+    {{#each chosenBooks }}
+    <h2>{{this.title}}</h2>
+    <img src="{{this.thumbnail}}">
+    <h3>{{this.description }}</h3>
+    <h3>{{this.pages}}</h3>
+    <h3>{{this.datePublished }} </h3>
+  
+    <li class="list-group-item"></li>
+    <form id='searchForm' action="/search/{{this.id}}" method="DELETE" class='form'>
+    <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
+    <h4>id: {{this.id}}</h4>
+
+    {{/each}}
+
     <!-- search bar -->
 
      <form id='searchForm' action="/search" method="POST" class='form'>

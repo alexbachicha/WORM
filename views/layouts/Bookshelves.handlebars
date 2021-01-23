@@ -24,18 +24,17 @@
 
    <ul class="list-group list-group-flush">
     
-    {{#each bookArray }}
+    {{#each book }}
     <h2>{{this.title}}</h2>
-    <h3>{{this.description }}</h3>
+    <h3>{{this.description}}</h3>
     <h3>{{this.pages}}</h3>
     <h3>{{this.datePublished }} </h3>
     <img src="{{this.thumbnail}}">
     <li class="list-group-item"></li>
     <form id='searchForm' action="/Bookshelves/{{this.id}}" method="POST" class='form'>
-    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
-    <h4>id: {{this.id}}</h4>
+    <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
+    <h4>id: {{this.id}}</h4> 
     {{/each}}
-
 
     
     <div id="results"></div>
