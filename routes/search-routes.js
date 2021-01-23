@@ -72,8 +72,7 @@ module.exports = (app) => {
   })
 
 
-    
-
+  
    // app.get("/bookshelf.html", isAuthenticated, (req, res) => {
 
 //        res.sendFile(path.join(__dirname, "../public/bookshelf.html"));
@@ -138,17 +137,6 @@ module.exports = (app) => {
        var addThumbnail = bookArray[req.params.id].thumbnail
 
   
-    //   console.log(addTitle + addAuthor + addDescription + addPublishedDate + addPages + addThumbnail)
-
-     //  db.Sequelize.Bookshelves.sync()
-
- //      var thisUser = db.Bookshelf.findAll({
-   //         where: {
-     //           userId: req.user.id
-     //   }})
-
-    //    thisUser.create({bookArray})
-
   
        /*thisUser =*/ db.Bookshelf.create({ 
                     title: addTitle, 
@@ -165,52 +153,9 @@ module.exports = (app) => {
                       res.render('search', {chosenBooks, bookArray})
                     })
 
-                     // chosenBooksArray.push(chosenBooks) */
-               //       console.log(chosenBooks.title + chosenBooks.pages)
+           
 
-                    //.then(function(dbBookShelf) {
-                    //    res.json(dbBookshelf)
-                   // }).catch(function(err) {
-                    //    res.json(err);
-                   // });
-         //          var addTitle = thisUser.title
-         //          var addAuthor = thisUser.author
-            ///       var addDescription = thisUser.description
-        //           var addPublishedDate = thisUser.datePublished
-           //        var addPages = thisUser.pages
-          //         var addThumbnail = thisUser.thumbnail
-                 //  db.Bookshelf.save()
-
-              //   thisUser = db.Bookshelf.findOne()
-
-     /*         db.Bookshelf.findAll({}).then(function(chosenBooks) {
-                // We have access to the todos as an argument inside of the callback function
-                res.json(chosenBooks);
-
-              })
-*/
-              //   console.log("created database entry, now what")
-
-               //  console.log("adding to database" + thisUser.title)
-
-              //   console.log(JSON.stringify(thisUser, null, 5))
-                 
-
-            /*     chosenBooks = { title: addTitle,
-                                  author : thisUser.author,
-                                  description : thisUser.description,
-                                  datePublished: thisUser.datePublished,
-                                  pages : thisUser.pages,
-                                  thumbnail : thisUser.thumbnail }
-*/
-                 
-          //  thisUser = db.Bookshelf.findAll()
-
-          //  chosenBooks = db.Bookshelf.findAll()
-
-         //   console.log(chosenBooks.toJSON())
-            console.log(thisUser.title)
-                  
+      
            //   res.render('search', {bookArray, chosenBooks})
 
     })
