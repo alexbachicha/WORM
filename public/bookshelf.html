@@ -41,19 +41,22 @@
       <h1>My Bookshelf</h1>
       <a href="search.html" type="button" class="btn btn-light">Add New Book</a>
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">
+      <button type="button" class="btn btn-light" data-toggle="modal" id="myBtn" data-target="#myModal">
         Share Your Bookshelf
       </button>
+
       <!-- Modal -->
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
+          <!-- Modal content -->
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
+              <h5 class="modal-title" id="exampleModalLongTitle">Send it!</h5>
             </div>
+
             <div class="modal-body">
               <form>
                 <div class="form-group">
@@ -66,6 +69,7 @@
                 </div>
               </form>
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Send message</button>
@@ -114,21 +118,11 @@
   <pre> </pre>
 
   <script>
-    // $('#exampleModal').on('show.bs.modal', function (event) {
-    //   var button = $(event.relatedTarget) // Button that triggered the modal
-    //   var recipient = button.data('whatever') // Extract info from data-* attributes
-    //   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    //   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    //   var modal = $(this)
-    //   modal.find('.modal-title').text('New message to ' + recipient)
-    //   modal.find('.modal-body input').val(recipient)
-    // })
-
     $(document).ready(function() {
-      $("#myBtn").click(function() {
+      $("#myButton").click(function() {
         $("myModal").modal();
       });
-    })
+    });
   </script>
 
 </body>
