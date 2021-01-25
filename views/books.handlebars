@@ -1,0 +1,11 @@
+  {{#each savedBookShelf }}
+    <h2>{{this.title}}</h2>
+    <h3>{{this.description}}</h3>
+    <h3>{{this.pages}}</h3>
+    <h3>{{this.datePublished }} </h3>
+    <img src="{{this.thumbnail}}">
+    <li class="list-group-item"></li>
+    <form id='searchForm' action="/Bookshelves/{{this.id}}" method="DELETE" class='form'>
+    <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
+    <h4>id: {{this.id}}</h4> 
+    {{/each}}
