@@ -2,23 +2,30 @@
 
 ## Description
 
-WORM is an application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query. This calls upon the Google Books API that will return an array of books with the corresponding data (Title, Author, Published Date, Picture, etc.) The user will be able to see the list of books on the page. Users can also save books to their own personal library, and share share that bookshelf with other users via email.
+WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library, and share share that bookshelf with other users via email.
 
-## Potential Features
+## User Story
 
-* Implement a Responsive Design/Image Processing
-* Create a digital bookshelf where the user can add books to their shelf, rate them, create lists, and send them to other users via email
-* Loading animations/pictures
-* Require user authentication for saving books to library 
-* For each item in the list add a link that will send the User to an external site which has more information about the book and/or create a popup with the book summary
+# The Client
+
+The client is represented as a user who likes to read and likes to keep track of their favorite books. The client can use WORM's book search to find books they would like to read or keep track of.
+
+Books that meet the user's search criteria will be displayed upon search.
+
+Users can add books to their personal bookshelf library, which will be displayed in a separate page of the navigation bar. User's can then email their bookshelf to other users.
 
 ## Tehnologies Used
 
-* [NodeMailer](https://nodemailer.com/usage/)
-* Node
-* Express
-* Handlebars.js
+* HTML
+* CSS
+* Handlebars
+* NodeJS
+* Express 
+* MySQL 
+* Sequelize
+* Passport
 * [Google Books API](https://developers.google.com/books)
+* [NodeMailer](https://nodemailer.com/usage/)
 
 ## Credits
 
