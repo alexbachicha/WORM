@@ -34,7 +34,7 @@ var addFromSearch = {}
 module.exports = (app) => {
 
 
-  app.get("/main.handlebars", isAuthenticated, (req, res) => {
+  app.get("/main", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/homePage.html")); 
   })
 
@@ -71,6 +71,39 @@ module.exports = (app) => {
         
   })
 
+  app.get("/search/search", isAuthenticated, (req, res) => {
+
+   
+  })
+
+      // Here we've add our isAuthenticated middleware to this route.
+  // If a user who is not logged in tries to access this route they will be redirected to the signup page
+  app.get("/search/bookshelves", isAuthenticated, (req, res) => {
+    db.Bookshelf.findAll({}).then( function(books) {
+  
+      console.log("get route for bookshelves" )
+
+      
+      books.forEach(item => {
+        var tempEntry = {
+                        title: item.title,
+                        author :item.author,
+                        description : item.description,
+                        datePublished: item.datePublished,
+                        pages : item.pages,
+                        thumbnail : item.thumbnail }
+
+                        savedBookShelf.push(tempEntry)
+                        console.log(tempEntry)
+        } )
+      })
+
+        
+      res.render("bookshelves", {savedBookShelf})
+      
+      
+})
+
 
   
    // app.get("/bookshelf.html", isAuthenticated, (req, res) => {
@@ -95,32 +128,11 @@ module.exports = (app) => {
   //  })
 
 
- /*   app.get("/Bookshelves", isAuthenticated, (req, res) => {
-        const { title, author, datePublished, pages} = req.body
-        db.Bookshelf.create({
-            title,
-            author,
-            datePublished,
-            pages,
-            createdAt : req.user.createdAt,
-            updatedAt : req.user.updatedAt,
-            UserId: req.user.id
-        }).then(() => {
-      res.redirect("Bookshelves");
-          })
-      });
-*/
+      app.delete("/bookshelves/:id", isAuthenticated, (req, res) => {
+        db.Bookshelf.destroy({ where: { id: req.params.id} })
 
-      app.delete("/search/:id", isAuthenticated, (req, res) => {
-
-        thisUser.splice(req.params.id, 1)
-
-        res.render('search', {thisUser, bookArray})
-
-      })
-
-      app.delete("/Bookshelves/:id", isAuthenticated, (req, res) => {
-        db.Bookshelf.destroy()
+        res.render("bookshelves")
+    
       })
 
 
@@ -131,35 +143,24 @@ module.exports = (app) => {
         console.log("put route to add book to shelf" + "entry:" + req.params.id)
 
       // if(bookArray[req.params.id])
-       var addTitle = bookArray[req.params.id].title
-       var addAuthor = bookArray[req.params.id].author
-       var addDescription = bookArray[req.params.id].description
-       var addPublishedDate = bookArray[req.params.id].datePublished
-       var addPages = bookArray[req.params.id].pages
-       var addThumbnail = bookArray[req.params.id].thumbnail
-
-  
+       var title = bookArray[req.params.id].title
+       var author = bookArray[req.params.id].author
+       var description = bookArray[req.params.id].description
+       var datePublished = bookArray[req.params.id].datePublished
+       var pages = bookArray[req.params.id].pages
+       var thumbnail = bookArray[req.params.id].thumbnail
   
        /*thisUser =*/ db.Bookshelf.create({ 
-                    title: addTitle, 
-                    author: addAuthor,
-                    description: addDescription,
-                    datePublished: addPublishedDate,
-                    pages: addPages,
-                    thumbnail: addThumbnail,
+                     title, 
+                     author,
+                    description,
+                    datePublished,
+                     pages,
+                     thumbnail,
                     createdAt : req.user.createdAt,
                     updatedAt : req.user.updatedAt,
                     UserId: req.user.id
                     }).then(function(chosenBooks){
-
-
-                     chosenBooksArray.push(chosenBooks)
-
-                 //  addFromSearch = chosenBooks
-              //    res.json(chosenBooks)
-
-               //       console.log(chosenBooksArray)
-                 //     console.log(bookArray)
 
                       console.log("This is what I clicked" + chosenBooks)
 

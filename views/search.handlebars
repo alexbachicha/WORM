@@ -1,20 +1,18 @@
  <div class="hero-image">
-    <div class="hero-text">
+  {{#with chosenBooks}}
+    <h2 style="color: floralwhite;">{{this.title}}</h2>
+    <img src="{{this.thumbnail}}">
+    {{this.author}}
+    {{this.pages}}
+    {{this.datePublished}}
+  {{/with}}
       </div>
 
 
-     {{#each chosenBooks}}
-    <h2>{{this.title}}</h2>
-    <img src="{{this.thumbnail}}">
-    {{this.createdAt}}
-    {{this.updatedAt}}
-    {{this.UserId}}
-    {{/each}} 
-    
-
     <!-- search bar -->
 
-      <form id='searchForm' action="/search" method="POST" class='form'>
+       <h2 style="color:darkslategrey; text-align:center">Search for Books</h2>
+      <form id='searchForm' action="/search" method="POST" class='form' style='text-align:center'>
     <input id="searchBooks" type="text" placeholder="Title or Author" name="searchTerm"></input>
       <button type="submit"><i class="fa fa-search"></i></button>
       </form>
@@ -22,9 +20,9 @@
 
    <!--<ul class="list-group list-group-flush"> -->
     <div class="container">  
-    <div class="card-deck">
+    <div class="card">
     {{#each bookArray }}
-     <div class="card bg-primary">
+     <div class="card bg-light">
       <div class="card-body text-center">
       <h2 class="card-text">{{this.title}}</h2>
     <img src="{{this.thumbnail}}">

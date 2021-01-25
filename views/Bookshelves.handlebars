@@ -5,7 +5,7 @@
   <div class="hero-image">
     <div class="hero-text">
       <h1>My Bookshelf</h1>
-      <a href="search" type="button" class="btn btn-light">Add New Book</a>
+      <a href="/search" type="button" class="btn btn-light">Add New Book</a>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">
         Share Your Bookshelf
@@ -46,55 +46,26 @@
 
   <!-- library -->
 
- 
 
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+           {{#each savedBookShelf }}
         <div class="col bookcard">
           <div class="card">
-            <img src="styleshbook-covers-big-2019101610.jpg" class="card-img-top" alt="...">
+            <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
             <div class="card-body">
               <!-- bar title -->
-              <h5 class="card-title">Book title</h5>
+              <h5 class="card-title">{{this.title}}</h5>
               <!-- book description -->
-              <p class="card-text">Description</p>
+              <p class="card-text">{{this.description}}</p>
             </div>
-          </div>
-        </div>
-        <div class="col bookcard">
-          <div class="card">
-            <img src="book-covers-big-2019101610.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Book title</h5>
-                <p class="card-text">Description</p>
-            </div>
-          </div>
-        </div>
-        <div class="col bookcard">
-          <div class="card">
-            <img src="book-covers-big-2019101610.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Book title</h5>
-                <p class="card-text">Description</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-  <pre> </pre>
-
-
-     {{#each savedBookShelf }}
-    <h2>{{this.title}}</h2>
-    <h3>{{this.description}}</h3>
-    <h3>{{this.pages}}</h3>
-    <h3>{{this.datePublished }} </h3>
-    <img src="{{this.thumbnail}}">
-    <li class="list-group-item"></li>
-    <form id='searchForm' action="/Bookshelves/{{this.id}}" method="DELETE" class='form'>
+      <form id='searchForm' action="/Bookshelves/{{this.id}}" method="DELETE" class='form'>
     <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
-    <h4>id: {{this.id}}</h4> 
-    {{/each}}
+          </div>
+        </div>
+        {{/each}}
+   
+      </div>
 
   <!-- <script>
     $('#exampleModal').on('show.bs.modal', function (event) {
