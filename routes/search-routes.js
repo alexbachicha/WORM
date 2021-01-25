@@ -48,11 +48,13 @@ module.exports = (app) => {
   app.get("/bookshelves", isAuthenticated, (req, res) => {
       db.Bookshelf.findAll({}).then( function(books) {
     
+
         console.log("get route for bookshelves" )
 
         
         books.forEach(item => {
           var tempEntry = {
+                          id: item.id,
                           title: item.title,
                           author :item.author,
                           description : item.description,
@@ -71,38 +73,39 @@ module.exports = (app) => {
         
   })
 
-  app.get("/search/search", isAuthenticated, (req, res) => {
+  // app.get("/search/search", isAuthenticated, (req, res) => {
 
    
-  })
+  // })
 
       // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/search/bookshelves", isAuthenticated, (req, res) => {
-    db.Bookshelf.findAll({}).then( function(books) {
+//   app.get("/search/bookshelves", isAuthenticated, (req, res) => {
+//     db.Bookshelf.findAll({}).then( function(books) {
   
-      console.log("get route for bookshelves" )
+//       console.log("get route for bookshelves" )
 
       
-      books.forEach(item => {
-        var tempEntry = {
-                        title: item.title,
-                        author :item.author,
-                        description : item.description,
-                        datePublished: item.datePublished,
-                        pages : item.pages,
-                        thumbnail : item.thumbnail }
+//       books.forEach(item => {
+//         var tempEntry = {
+//                         id: item.id,
+//                         title: item.title,
+//                         author :item.author,
+//                         description : item.description,
+//                         datePublished: item.datePublished,
+//                         pages : item.pages,
+//                         thumbnail : item.thumbnail }
 
-                        savedBookShelf.push(tempEntry)
-                        console.log(tempEntry)
-        } )
-      })
+//                         savedBookShelf.push(tempEntry)
+//                         console.log(tempEntry)
+//         } )
+//       })
 
         
-      res.render("bookshelves", {savedBookShelf})
+//       res.render("bookshelves", {savedBookShelf})
       
       
-})
+// })
 
 
   
@@ -128,11 +131,39 @@ module.exports = (app) => {
   //  })
 
 
-      app.delete("/bookshelves/:id", isAuthenticated, (req, res) => {
-        db.Bookshelf.destroy({ where: { id: req.params.id} })
+      app.get("/bookshelves/:id", isAuthenticated, (req, res) => {
+        db.Bookshelf.destroy({ where: { id: req.params.id} }).then(function(deleted) {
 
-        res.render("bookshelves")
+          console.log("destroying" + deleted)
+        
+        })
+
+        db.Bookshelf.findAll({}).then( function(books) {
     
+       //   console.log("get route for bookshelves" )
+  
+       savedBookShelf = []
+          
+          books.forEach(item => {
+            var tempEntry = {
+                            id : item.id,
+                            title: item.title,
+                            author :item.author,
+                            description : item.description,
+                            datePublished: item.datePublished,
+                            pages : item.pages,
+                            thumbnail : item.thumbnail }
+  
+                            savedBookShelf.push(tempEntry)
+                            console.log(tempEntry)
+            } )
+          })
+  
+  
+         // res.redirect('/bookshelves')
+        //  res.render("bookshelves", {savedBookShelf})
+          res.redirect('/bookshelves')
+          
       })
 
 
@@ -143,20 +174,20 @@ module.exports = (app) => {
         console.log("put route to add book to shelf" + "entry:" + req.params.id)
 
       // if(bookArray[req.params.id])
-       var title = bookArray[req.params.id].title
-       var author = bookArray[req.params.id].author
-       var description = bookArray[req.params.id].description
-       var datePublished = bookArray[req.params.id].datePublished
-       var pages = bookArray[req.params.id].pages
-       var thumbnail = bookArray[req.params.id].thumbnail
+       var addTitle = bookArray[req.params.id].title
+       var addAuthor = bookArray[req.params.id].author
+       var addDescription = bookArray[req.params.id].description
+       var addDatePublished = bookArray[req.params.id].datePublished
+       var addPages = bookArray[req.params.id].pages
+       var addThumbnail = bookArray[req.params.id].thumbnail
   
        /*thisUser =*/ db.Bookshelf.create({ 
-                     title, 
-                     author,
-                    description,
-                    datePublished,
-                     pages,
-                     thumbnail,
+                     title: addTitle, 
+                     author: addAuthor,
+                    description: addDescription,
+                    datePublished: addDatePublished,
+                     pages: addPages,
+                     thumbnail: addThumbnail,
                     createdAt : req.user.createdAt,
                     updatedAt : req.user.updatedAt,
                     UserId: req.user.id

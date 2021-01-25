@@ -1,11 +1,11 @@
  <div class="hero-image">
-  {{#with chosenBooks}}
+  {{#each chosenBooks}}
     <h2 style="color: floralwhite;">{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
     {{this.author}}
     {{this.pages}}
     {{this.datePublished}}
-  {{/with}}
+  {{/each}}
       </div>
 
 

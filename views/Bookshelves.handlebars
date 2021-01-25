@@ -59,8 +59,10 @@
               <!-- book description -->
               <p class="card-text">{{this.description}}</p>
             </div>
-      <form id='searchForm' action="/Bookshelves/{{this.id}}" method="DELETE" class='form'>
-    <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
+    <!-- <form id='searchForm' action="bookshelves/{{this.id}}" method="DELETE" class='form'> -->
+   <!-- <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form> -->
+    <form id='searchForm' action="/bookshelves/{{this.id}}" method="DELETE" class='form'>
+    <button type="submit" class="btn btn danger" data-id="{{this.id}}">Delete Book from Shelf</button></form>
           </div>
         </div>
         {{/each}}

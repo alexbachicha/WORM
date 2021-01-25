@@ -42,3 +42,22 @@
 </body>
 
 </html>
+
+<script src="../../public/js/books.js"></script>
+
+<script type="text/javascript">
+// Function to delete a burger when the trash can icon is clicked.
+  $(".delete-book").on("click", function(event) {
+    event.preventDefault();
+
+    var id = $(this).data("id");
+
+    console.log("HIT THE DELETE ROUTE")
+
+    // Send the DELETE request.
+    $.ajax({
+      type: "POST",
+      url: "/bookshelves/" + id
+    }).then(location.reload());
+  });
+  </script>
