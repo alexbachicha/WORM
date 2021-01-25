@@ -46,17 +46,15 @@
 
 <h4>Current Shelf (temp)</h4>
     
-    {{#each chosenBooks}}
+     {{#each chosenBooks}}
     <h2>{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
-    <h3>{{this.description }}</h3>
-    <h3>{{this.pages}}</h3>
-    <h3>{{this.datePublished }} </h3>
-    {{/each}}
-  <!--  <li class="list-group-item"></li> -->
-    <form id='searchForm' action="/search/{{this.id}}" method="DELETE" class='form'>
-    <button type="submit" data-id="{{this.id}}">Delete Book from your Shelf</button></form>
-    <h4>id: {{this.id}}</h4> 
+    {{this.createdAt}}
+    {{this.author}}
+    {{this.updatedAt}}
+    {{this.UserId}}
+    {{/each}} 
+    
 
 
  <h2>End of SHelf</h2>
@@ -74,13 +72,13 @@
   <li class="list-group-item">
     <h2>{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
-    <h3>{{this.description }}</h3>
+   <!-- <h3>{{this.description }}</h3>
     <h3>{{this.pages}}</h3>
-    <h3>{{this.datePublished }} </h3>
+    <h3>{{this.datePublished }} </h3> -->
  
     <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
     <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
-    <h4>id: {{this.id}}</h4> </li>
+    <h4>id: {{this.id}}</h4> </li> 
 
     {{/each }}
 

@@ -22,11 +22,11 @@ var bookEntry
 // global user variable, will need to save to storage later
 var thisUser = [{}]
 
-var chosenBooksArray = [{}]
+var chosenBooksArray = []
 
 var savedBookShelf = []
 
-var addFromSearch
+var addFromSearch = {}
 
 
 
@@ -34,13 +34,13 @@ var addFromSearch
 module.exports = (app) => {
 
 
-  app.get("/Bookshelves", isAuthenticated, (req, res) => {
-    res.render("Bookshelves")
-  })
+//  app.get("/Bookshelves", isAuthenticated, (req, res) => {
+  //  res.render("Bookshelves")
+//  })
 
-  app.get("/search.html", isAuthenticated, (req, res) => {
-    res.render("search")
-  })
+//  app.get("/search.html", isAuthenticated, (req, res) => {
+  //  res.render("search")
+ // })
 
     // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
@@ -49,7 +49,7 @@ module.exports = (app) => {
       //  books = books.values()
         console.log("get route for bookshelves" )
 
-        savedBookShelf = []
+      //  savedBookShelf = []
         
         books.forEach(item => {
           var tempEntry = {
@@ -59,12 +59,14 @@ module.exports = (app) => {
                           datePublished: item.datePublished,
                           pages : item.pages,
                           thumbnail : item.thumbnail }
+
                           savedBookShelf.push(tempEntry)
                           console.log(tempEntry)
           } )
+        })
 
           
-        res.render("Bookshelves", {savedBookShelf}) })
+        res.render("Bookshelves", {savedBookShelf})
         
         //res.json(books) })
         //
@@ -78,11 +80,11 @@ module.exports = (app) => {
 //        res.sendFile(path.join(__dirname, "../public/bookshelf.html"));
 //    })
 
-    app.get("/search", isAuthenticated, (req, res) => {
+  //  app.get("/search", isAuthenticated, (req, res) => {
 
       //db.Bookshelf.findAll({}).then(function(chosenBooks) {}
-      res.render('search');
-    })
+   //   res.render('search');
+ //   })
 
 
      //   chosenBooks.toJSON()
@@ -95,7 +97,7 @@ module.exports = (app) => {
   //  })
 
 
-  /*  app.get("/Bookshelves", isAuthenticated, (req, res) => {
+ /*   app.get("/Bookshelves", isAuthenticated, (req, res) => {
         const { title, author, datePublished, pages} = req.body
         db.Bookshelf.create({
             title,
@@ -145,12 +147,20 @@ module.exports = (app) => {
                     datePublished: addPublishedDate,
                     pages: addPages,
                     thumbnail: addThumbnail,
-          //          createdAt : req.user.createdAt,
-           //         updatedAt : req.user.updatedAt,
+                    createdAt : req.user.createdAt,
+                    updatedAt : req.user.updatedAt,
                     UserId: req.user.id
                     }).then(function(chosenBooks){
 
-                      res.render('search', {chosenBooks, bookArray})
+                   //   chosenBooksArray.push(chosenBooks)
+
+                 //  addFromSearch = chosenBooks
+                 //  res.json(chosenBooks)
+
+                   //   console.log(chosenBooks)
+                      console.log(bookArray)
+
+                      res.render('search', {chosenBooks, bookArray} )
                     })
 
            
