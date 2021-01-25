@@ -4,7 +4,8 @@
     <img src="{{this.thumbnail}}">
     {{this.author}}
     {{this.pages}}
-    {{this.datePublished}}
+    {{this.datePublished}} 
+   <!-- <a href="{{this.infoLink}}">Buy this book on Google Books</a> -->
   {{/each}}
       </div>
 
@@ -24,15 +25,18 @@
     {{#each bookArray }}
      <div class="card bg-light">
       <div class="card-body text-center">
+    <a href="{{this.infoLink}}">Buy this book on Google Books</a>
+    <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
+    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
       <h2 class="card-text">{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
    <p>{{this.description }}</p>
     <p>Pages: {{this.pages}}</p>
+    
+    <h3>{{this.datePublished }} </h3>
+
       </div>
     </div>
-    <h3>{{this.datePublished }} </h3>
-    <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
-    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
     {{/each }}
     </div>
     </div>

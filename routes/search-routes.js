@@ -51,6 +51,7 @@ module.exports = (app) => {
 
         console.log("get route for bookshelves" )
 
+        savedBookShelf = []
         
         books.forEach(item => {
           var tempEntry = {
@@ -60,8 +61,8 @@ module.exports = (app) => {
                           description : item.description,
                           datePublished: item.datePublished,
                           pages : item.pages,
-                          thumbnail : item.thumbnail }
-
+                          thumbnail : item.thumbnail,
+                          infoLink : item.infoLink, }
                           savedBookShelf.push(tempEntry)
                           console.log(tempEntry)
           } )
@@ -152,8 +153,8 @@ module.exports = (app) => {
                             description : item.description,
                             datePublished: item.datePublished,
                             pages : item.pages,
-                            thumbnail : item.thumbnail }
-  
+                            thumbnail : item.thumbnail,
+                             infoLink: item.infoLink, }
                             savedBookShelf.push(tempEntry)
                             console.log(tempEntry)
             } )
@@ -162,7 +163,7 @@ module.exports = (app) => {
   
          // res.redirect('/bookshelves')
         //  res.render("bookshelves", {savedBookShelf})
-          res.redirect('/bookshelves')
+          res.redirect('/bookshelves/')
           
       })
 
@@ -180,6 +181,7 @@ module.exports = (app) => {
        var addDatePublished = bookArray[req.params.id].datePublished
        var addPages = bookArray[req.params.id].pages
        var addThumbnail = bookArray[req.params.id].thumbnail
+       var addInfoLink = bookArray[req.params.id].infoLink
   
        /*thisUser =*/ db.Bookshelf.create({ 
                      title: addTitle, 
@@ -188,6 +190,7 @@ module.exports = (app) => {
                     datePublished: addDatePublished,
                      pages: addPages,
                      thumbnail: addThumbnail,
+                     infoLink : addInfoLink,
                     createdAt : req.user.createdAt,
                     updatedAt : req.user.updatedAt,
                     UserId: req.user.id
@@ -227,7 +230,8 @@ module.exports = (app) => {
                     description: item.volumeInfo.description,
                     datePublished: item.volumeInfo.publishedDate,
                     pages: item.volumeInfo.pageCount,
-                    thumbnail: item.volumeInfo.imageLinks.thumbnail
+                    thumbnail: item.volumeInfo.imageLinks.thumbnail,
+                    infoLink: item.volumeInfo.infoLink
                      };
 
                      i += 1

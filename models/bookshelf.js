@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         author:  {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         description: {
@@ -24,7 +24,14 @@ module.exports = (sequelize, DataTypes) => {
         thumbnail: {
                 type: DataTypes.STRING,
                 allowNull: true
+        },
+
+        infoLink: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
+
+
     })
 
     Bookshelf.associate = (models) => {
