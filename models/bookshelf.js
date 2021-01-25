@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         pages:  {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         thumbnail: {
                 type: DataTypes.STRING,

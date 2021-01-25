@@ -34,22 +34,22 @@ var addFromSearch = {}
 module.exports = (app) => {
 
 
-//  app.get("/Bookshelves", isAuthenticated, (req, res) => {
-  //  res.render("Bookshelves")
-//  })
+  app.get("/main.handlebars", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/homePage.html")); 
+  })
 
-//  app.get("/search.html", isAuthenticated, (req, res) => {
-  //  res.render("search")
- // })
+  app.get("/search", isAuthenticated, (req, res) => {
+    res.render("search"); 
+  })
+  
 
     // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/Bookshelves", isAuthenticated, (req, res) => {
+  app.get("/bookshelves", isAuthenticated, (req, res) => {
       db.Bookshelf.findAll({}).then( function(books) {
-      //  books = books.values()
+    
         console.log("get route for bookshelves" )
 
-      //  savedBookShelf = []
         
         books.forEach(item => {
           var tempEntry = {
@@ -66,10 +66,8 @@ module.exports = (app) => {
         })
 
           
-        res.render("Bookshelves", {savedBookShelf})
+        res.render("bookshelves", {savedBookShelf})
         
-        //res.json(books) })
-        //
         
   })
 
@@ -119,12 +117,14 @@ module.exports = (app) => {
 
         res.render('search', {thisUser, bookArray})
 
-
       })
 
       app.delete("/Bookshelves/:id", isAuthenticated, (req, res) => {
         db.Bookshelf.destroy()
       })
+
+
+
 
       app.post("/search/:id", isAuthenticated, (req, res) => {
 
@@ -152,19 +152,21 @@ module.exports = (app) => {
                     UserId: req.user.id
                     }).then(function(chosenBooks){
 
-                   //   chosenBooksArray.push(chosenBooks)
+
+                     chosenBooksArray.push(chosenBooks)
 
                  //  addFromSearch = chosenBooks
-                 //  res.json(chosenBooks)
+              //    res.json(chosenBooks)
 
-                   //   console.log(chosenBooks)
-                      console.log(bookArray)
+               //       console.log(chosenBooksArray)
+                 //     console.log(bookArray)
 
-                      res.render('search', {chosenBooks, bookArray} )
+                      console.log("This is what I clicked" + chosenBooks)
+
+                      res.render('search',  {chosenBooks, bookArray} )
                     })
 
            
-
       
            //   res.render('search', {bookArray, chosenBooks})
 
@@ -189,7 +191,7 @@ module.exports = (app) => {
                 bookEntry =   
                     { id: i, 
                     title: item.volumeInfo.title, 
-                    author: JSON.stringify(item.volumeInfo.authors[0]), 
+                    author: item.volumeInfo.authors[0], 
                     description: item.volumeInfo.description,
                     datePublished: item.volumeInfo.publishedDate,
                     pages: item.volumeInfo.pageCount,
@@ -199,7 +201,7 @@ module.exports = (app) => {
                      i += 1
 
                 var title = item.volumeInfo.title
-                var author = JSON.stringify(item.volumeInfo.authors[0])
+                var author = item.volumeInfo.authors[0]
                 var description = item.volumeInfo.description
                 var publishedDate = item.volumeInfo.publishedDate
                 var pages = item.volumeInfo.pageCount
