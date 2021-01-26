@@ -39,7 +39,7 @@ module.exports = (app) => {
   })
 
   app.get("/search", isAuthenticated, (req, res) => {
-    res.render("search", { req });
+    res.render("search");
   })
 
 
