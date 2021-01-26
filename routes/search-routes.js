@@ -76,65 +76,9 @@ module.exports = (app) => {
 
   })
 
-  // app.get("/search/search", isAuthenticated, (req, res) => {
 
 
-  // })
-
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  //   app.get("/search/bookshelves", isAuthenticated, (req, res) => {
-  //     db.Bookshelf.findAll({}).then( function(books) {
-
-  //       console.log("get route for bookshelves" )
-
-
-  //       books.forEach(item => {
-  //         var tempEntry = {
-  //                         id: item.id,
-  //                         title: item.title,
-  //                         author :item.author,
-  //                         description : item.description,
-  //                         datePublished: item.datePublished,
-  //                         pages : item.pages,
-  //                         thumbnail : item.thumbnail }
-
-  //                         savedBookShelf.push(tempEntry)
-  //                         console.log(tempEntry)
-  //         } )
-  //       })
-
-
-  //       res.render("bookshelves", {savedBookShelf})
-
-
-  // })
-
-
-
-  // app.get("/bookshelf.html", isAuthenticated, (req, res) => {
-
-  //        res.sendFile(path.join(__dirname, "../public/bookshelf.html"));
-  //    })
-
-  //  app.get("/search", isAuthenticated, (req, res) => {
-
-  //db.Bookshelf.findAll({}).then(function(chosenBooks) {}
-  //   res.render('search');
-  //   })
-
-
-  //   chosenBooks.toJSON()
-
-  //     console.log("get route" + chosenBooks.title)
-
-
-  //     })
-
-  //  })
-
-
-  app.get("/bookshelves/:id", isAuthenticated, (req, res) => {
+  app.delete("/bookshelves/:id", isAuthenticated, (req, res) => {
     db.Bookshelf.destroy({ where: { id: req.params.id } }).then(function (deleted) {
 
       console.log("destroying" + deleted)
@@ -168,7 +112,7 @@ module.exports = (app) => {
 
     // res.redirect('/bookshelves')
     //  res.render("bookshelves", {savedBookShelf})
-    res.redirect('/bookshelves/')
+    res.redirect('/bookshelves')
 
   })
 

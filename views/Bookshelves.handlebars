@@ -64,8 +64,9 @@
             </div>
     <!-- <form id='searchForm' action="bookshelves/{{this.id}}" method="DELETE" class='form'> -->
    <!-- <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form> -->
-    <form id='searchForm' action="/bookshelves/{{this.id}}" method="DELETE" class='form'>
-    <button type="submit" class="btn btn-danger" data-id="{{this.id}}">Delete Book from Shelf</button></form>
+          <form  class='form'>
+          </form>
+            <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
           </div>
         </div>
         {{/each}}
@@ -84,5 +85,17 @@
     })
   </script> -->
 
-</body>
-</html>
+<script>
+  console.log('test')
+  
+  $(".btn").on("click", (e) => {
+    e.preventDefault();
+    console.log(`/bookshelves/${e.target.dataset.id}`);
+    $.ajax({ 
+      method: "DELETE",
+      url: `/bookshelves/${e.target.dataset.id}`
+      }).then(data => {
+      console.log("AFTER delete:", data);
+    })
+  });
+</script>
