@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         infoLink: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        webReaderLink: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
 
 

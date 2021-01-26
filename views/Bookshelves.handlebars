@@ -52,11 +52,13 @@
            {{#each savedBookShelf }}
         <div class="col bookcard">
           <div class="card">
-            <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
             <div class="card-body">
               <!-- bar title -->
+               <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
               <h5 class="card-title">{{this.title}}</h5>
               <a href="{{this.infoLink}}">Buy this book on Google Books</a>
+              <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
+            
               <!-- book description -->
               <p class="card-text">{{this.description}}</p>
             </div>

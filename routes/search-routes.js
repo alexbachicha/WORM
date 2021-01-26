@@ -39,7 +39,7 @@ module.exports = (app) => {
   })
 
   app.get("/search", isAuthenticated, (req, res) => {
-    res.render("search"); 
+    res.render("search", {req}); 
   })
   
 
@@ -62,7 +62,8 @@ module.exports = (app) => {
                           datePublished: item.datePublished,
                           pages : item.pages,
                           thumbnail : item.thumbnail,
-                          infoLink : item.infoLink, }
+                          infoLink : item.infoLink,
+                         webReaderLink : item.webReaderLink }
                           savedBookShelf.push(tempEntry)
                           console.log(tempEntry)
           } )
@@ -154,7 +155,9 @@ module.exports = (app) => {
                             datePublished: item.datePublished,
                             pages : item.pages,
                             thumbnail : item.thumbnail,
-                             infoLink: item.infoLink, }
+                             infoLink: item.infoLink,
+                             webReaderLink: item.webReaderLink }
+                             
                             savedBookShelf.push(tempEntry)
                             console.log(tempEntry)
             } )
@@ -182,6 +185,7 @@ module.exports = (app) => {
        var addPages = bookArray[req.params.id].pages
        var addThumbnail = bookArray[req.params.id].thumbnail
        var addInfoLink = bookArray[req.params.id].infoLink
+       var addWebReaderLink= bookArray[req.params.id].webReaderLink
   
        /*thisUser =*/ db.Bookshelf.create({ 
                      title: addTitle, 
@@ -191,6 +195,7 @@ module.exports = (app) => {
                      pages: addPages,
                      thumbnail: addThumbnail,
                      infoLink : addInfoLink,
+                     webReaderLink : addWebReaderLink,
                     createdAt : req.user.createdAt,
                     updatedAt : req.user.updatedAt,
                     UserId: req.user.id
@@ -231,7 +236,8 @@ module.exports = (app) => {
                     datePublished: item.volumeInfo.publishedDate,
                     pages: item.volumeInfo.pageCount,
                     thumbnail: item.volumeInfo.imageLinks.thumbnail,
-                    infoLink: item.volumeInfo.infoLink
+                    infoLink: item.volumeInfo.infoLink,
+                    webReaderLink: item.accessInfo.webReaderLink
                      };
 
                      i += 1
