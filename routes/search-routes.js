@@ -71,7 +71,7 @@ module.exports = (app) => {
     })
 
 
-    res.render("bookshelves", { savedBookShelf })
+    res.render("book", { savedBookShelf })
 
 
   })
