@@ -32,11 +32,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
- /*       webReaderLink: {
+        webReaderLink: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        review: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        completed: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
         }
-*/
 
     })
 

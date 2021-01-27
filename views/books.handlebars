@@ -47,14 +47,13 @@
   <!-- library -->
 
 
-
     <div class="row row-cols-1 row-cols-md-4 g-2">
            {{#each savedBookShelf }}
         <div class="col bookcard">
           <div class="card">
             <div class="card-body">
               <!-- bar title -->
-       <!--        <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> -->
+             <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> 
               <h5 class="card-title">{{this.title}}</h5>
               <a href="{{this.infoLink}}">Buy this book on Google Books</a>
               <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
@@ -62,8 +61,6 @@
               <!-- book description -->
               <p class="card-text">{{this.description}}</p>
             </div>
-    <!-- <form id='searchForm' action="books/{{this.id}}" method="DELETE" class='form'> -->
-   <!-- <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form> -->
           <form  class='form'>
           </form>
             <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
@@ -84,6 +81,11 @@
       modal.find('.modal-body input').val(recipient)
     })
   </script> -->
+
+  <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
+<script type="text/javascript">
+GBS_insertPreviewButtonPopup('ISBN:9781982137977');
+</script>
 
 <script>
   console.log('test')

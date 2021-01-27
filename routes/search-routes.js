@@ -135,7 +135,7 @@ module.exports = (app) => {
     var addPages = bookArray[req.params.id].pages
     var addThumbnail = bookArray[req.params.id].thumbnail
     var addInfoLink = bookArray[req.params.id].infoLink
-  //  var addWebReaderLink = bookArray[req.params.id].webReaderLink
+    var addWebReaderLink = bookArray[req.params.id].webReaderLink
 
        /*thisUser =*/ db.Bookshelf.create({
       title: addTitle,
@@ -145,7 +145,7 @@ module.exports = (app) => {
       pages: addPages,
       thumbnail: addThumbnail,
       infoLink: addInfoLink,
-  //    webReaderLink: addWebReaderLink,
+      webReaderLink: addWebReaderLink,
       createdAt: req.user.createdAt,
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
@@ -185,7 +185,7 @@ module.exports = (app) => {
           pages: item.volumeInfo.pageCount,
           thumbnail: item.volumeInfo.imageLinks.thumbnail,
           infoLink: item.volumeInfo.infoLink,
-       //   webReaderLink: item.accessInfo.webReaderLink
+          webReaderLink: item.accessInfo.webReaderLink
         };
 
       //  console.log(item.accessInfo.webReaderLink)

@@ -23,7 +23,7 @@
     {{#each bookArray }}
      <div class="card bg-light">
       <div class="card-body text-center">
-  <!--  <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> -->
+  <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
     <a href="{{this.infoLink}}">Buy this book on Google Books</a>
     <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
     <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
