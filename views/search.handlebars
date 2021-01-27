@@ -1,20 +1,17 @@
  <div class="hero-image">
-    <div class="hero-text">
-      </div>
-
-
-     {{#each chosenBooks}}
-    <h2>{{this.title}}</h2>
+    <h2 style="color: floralwhite;">{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
-    {{this.createdAt}}
-    {{this.updatedAt}}
-    {{this.UserId}}
-    {{/each}} 
-    
+    {{this.author}}
+    {{this.pages}} 
+   <!-- <a href="{{this.infoLink}}">Buy this book on Google Books</a> -->
+
+  </div>
+
 
     <!-- search bar -->
 
-      <form id='searchForm' action="/search" method="POST" class='form'>
+       <h2 style="color:darkslategrey; text-align:center">Search for Books</h2>
+      <form id='searchForm' action="/search" method="POST" class='form' style='text-align:center'>
     <input id="searchBooks" type="text" placeholder="Title or Author" name="searchTerm"></input>
       <button type="submit"><i class="fa fa-search"></i></button>
       </form>
@@ -22,19 +19,23 @@
 
    <!--<ul class="list-group list-group-flush"> -->
     <div class="container">  
-    <div class="card-deck">
+    <div class="card">
     {{#each bookArray }}
-     <div class="card bg-primary">
+     <div class="card bg-light">
       <div class="card-body text-center">
+  <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
+    <a href="{{this.infoLink}}">Buy this book on Google Books</a>
+    <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
+    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
       <h2 class="card-text">{{this.title}}</h2>
     <img src="{{this.thumbnail}}">
    <p>{{this.description }}</p>
     <p>Pages: {{this.pages}}</p>
+    
+    <h3>{{this.datePublished }} </h3>
+
       </div>
     </div>
-    <h3>{{this.datePublished }} </h3>
-    <form id='searchForm' action="/search/{{this.id}}" method="POST" class='form'>
-    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
     {{/each }}
     </div>
     </div>
