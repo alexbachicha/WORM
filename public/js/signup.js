@@ -32,7 +32,7 @@ $(document).ready(() => {
       password: password
     })
       .then(() => {
-        window.location.replace("/bookshelves");
+        window.location.replace("/books");
         // If there's an error, handle it by throwing up a bootstrap alert
       })
       .catch(handleLoginErr);

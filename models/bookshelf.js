@@ -1,40 +1,42 @@
+'use strict';
+
 
 module.exports = (sequelize, DataTypes) => {
     const Bookshelf = sequelize.define('Bookshelf', {
         title: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         author:  {
             type: DataTypes.TEXT,
-            allowNull: true,
+            allowNull: false,
         },
         description: {
             type: DataTypes.TEXT,
-            allowNull: true,
+            allowNull: false,
         },
         datePublished : {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
         },
         pages:  {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
         },
         thumbnail: {
                 type: DataTypes.STRING,
-                allowNull: true
+                allowNull: false,
         },
 
         infoLink: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
-        webReaderLink: {
+ /*       webReaderLink: {
             type: DataTypes.STRING,
             allowNull: true,
         }
-
+*/
 
     })
 

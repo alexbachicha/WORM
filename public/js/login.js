@@ -29,7 +29,7 @@ $(document).ready(() => {
       password: password
     })
       .then(() => {
-        window.location.replace("/bookshelves");
+        window.location.replace("/books");
         // If there's an error, log the error
       })
       .catch(err => {

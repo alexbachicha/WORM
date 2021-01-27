@@ -54,7 +54,7 @@
           <div class="card">
             <div class="card-body">
               <!-- bar title -->
-               <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
+       <!--        <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> -->
               <h5 class="card-title">{{this.title}}</h5>
               <a href="{{this.infoLink}}">Buy this book on Google Books</a>
               <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
@@ -62,7 +62,7 @@
               <!-- book description -->
               <p class="card-text">{{this.description}}</p>
             </div>
-    <!-- <form id='searchForm' action="bookshelves/{{this.id}}" method="DELETE" class='form'> -->
+    <!-- <form id='searchForm' action="books/{{this.id}}" method="DELETE" class='form'> -->
    <!-- <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form> -->
           <form  class='form'>
           </form>
@@ -88,12 +88,12 @@
 <script>
   console.log('test')
   
-  $(".btn").on("click", (e) => {
+  $(".btn-danger").on("click", (e) => {
     e.preventDefault();
-    console.log(`/bookshelves/${e.target.dataset.id}`);
+    console.log(`/books/${e.target.dataset.id}`);
     $.ajax({ 
       method: "DELETE",
-      url: `/bookshelves/${e.target.dataset.id}`
+      url: `/books/${e.target.dataset.id}`
       }).then(data => {
       console.log("AFTER delete:", data);
     })

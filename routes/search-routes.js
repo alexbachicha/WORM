@@ -39,17 +39,19 @@ module.exports = (app) => {
   })
 
   app.get("/search", isAuthenticated, (req, res) => {
+
+    console.log("hitting the get /search")
     res.render("search");
   })
 
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/bookshelves", isAuthenticated, (req, res) => {
+  app.get("/books", isAuthenticated, (req, res) => {
     db.Bookshelf.findAll({}).then(function (books) {
 
 
-      console.log("get route for bookshelves")
+      console.log("get route for books")
 
       savedBookShelf = []
 
@@ -63,7 +65,7 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
-          webReaderLink: item.webReaderLink
+        //  webReaderLink: item.webReaderLink
         }
         savedBookShelf.push(tempEntry)
         console.log(tempEntry)
@@ -71,23 +73,25 @@ module.exports = (app) => {
     })
 
 
-    res.render("book", { savedBookShelf })
+    res.render("books", { savedBookShelf })
 
 
   })
 
 
 
-  app.delete("/bookshelves/:id", isAuthenticated, (req, res) => {
+  app.delete("/books/:id", isAuthenticated, (req, res) => {
     db.Bookshelf.destroy({ where: { id: req.params.id } }).then(function (deleted) {
 
       console.log("destroying" + deleted)
+
+      savedBookShelf.splice(req.params.id, 1)
 
     })
 
     db.Bookshelf.findAll({}).then(function (books) {
 
-      //   console.log("get route for bookshelves" )
+      //   console.log("get route for books" )
 
       savedBookShelf = []
 
@@ -101,7 +105,7 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
-          webReaderLink: item.webReaderLink
+     //     webReaderLink: item.webReaderLink
         }
 
         savedBookShelf.push(tempEntry)
@@ -110,9 +114,9 @@ module.exports = (app) => {
     })
 
 
-    // res.redirect('/bookshelves')
-    //  res.render("bookshelves", {savedBookShelf})
-    res.redirect('/bookshelves')
+    // res.redirect('/books')
+      res.render("books", {savedBookShelf})
+    //res.redirect('/books')
 
   })
 
@@ -131,7 +135,7 @@ module.exports = (app) => {
     var addPages = bookArray[req.params.id].pages
     var addThumbnail = bookArray[req.params.id].thumbnail
     var addInfoLink = bookArray[req.params.id].infoLink
-    var addWebReaderLink = bookArray[req.params.id].webReaderLink
+  //  var addWebReaderLink = bookArray[req.params.id].webReaderLink
 
        /*thisUser =*/ db.Bookshelf.create({
       title: addTitle,
@@ -141,12 +145,12 @@ module.exports = (app) => {
       pages: addPages,
       thumbnail: addThumbnail,
       infoLink: addInfoLink,
-      webReaderLink: addWebReaderLink,
+  //    webReaderLink: addWebReaderLink,
       createdAt: req.user.createdAt,
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
     }).then(function () {
-      res.render('search', { title: addTitle, thumbnail: addThumbnail, author: addAuthor, pages: addPages })
+      res.render('search', { title: addTitle, thumbnail: addThumbnail, author: addAuthor, pages: addPages,  bookArray} )
     })
 
 
@@ -181,8 +185,10 @@ module.exports = (app) => {
           pages: item.volumeInfo.pageCount,
           thumbnail: item.volumeInfo.imageLinks.thumbnail,
           infoLink: item.volumeInfo.infoLink,
-          webReaderLink: item.accessInfo.webReaderLink
+       //   webReaderLink: item.accessInfo.webReaderLink
         };
+
+      //  console.log(item.accessInfo.webReaderLink)
 
         i += 1
 
@@ -193,30 +199,12 @@ module.exports = (app) => {
         var pages = item.volumeInfo.pageCount
         var thumbnail = item.volumeInfo.imageLinks.thumbnail;
 
-        //       console.log(item.volumeInfo.title)
-        //       console.log(item.volumeInfo.authors[0])
-        //        console.log(item.volumeInfo.description)
-        //        console.log(item.volumeInfo.publishedDate)
-        //        console.log(item.volumeInfo.pageCount)
-        //        console.log(item.volumeInfo.imageLinks.thumbnail)
-
         bookArray.push(bookEntry)
 
-        /*     db.Bookshelf.create = 
-             ({ title, 
-                 author, 
-                 description,
-                 publishedDate,
-                 pages,
-                 thumbnail  }) */
       })
 
-      //     console.log(bookArray)
 
       res.render('search', { bookArray })
-      // data.data.items.forEach(item => console.log(item.volumeInfo.description))
-      // data.data.items.forEach(item => console.log(item.volumeInfo.publishedDate))
-      // data.data.items.forEach(item => console.log(item.volumeInfo.pageCount))
 
     })
 
