@@ -1,5 +1,6 @@
 {
   "development": {
+    "use_env_variable": "JAWSDB_URL",
     "username": "root",
     "password": "iamroot9",
     "database": "bookshelf",
