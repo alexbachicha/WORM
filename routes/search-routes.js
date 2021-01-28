@@ -65,7 +65,7 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
-        //  webReaderLink: item.webReaderLink
+          webReaderLink: item.webReaderLink
         }
         savedBookShelf.push(tempEntry)
         console.log(tempEntry)
@@ -105,7 +105,8 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
-     //     webReaderLink: item.webReaderLink
+          webReaderLink: item.webReaderLink,
+          review : ''
         }
 
         savedBookShelf.push(tempEntry)
@@ -119,6 +120,18 @@ module.exports = (app) => {
     //res.redirect('/books')
 
   })
+
+  app.put("/books/:id", isAuthenticated, (req, res) => {
+
+    console.log("hitting the put route")
+
+    db.Bookshelf.update({ review: req.body.id}, 
+      {where: { id: req.params.id }
+  } )
+
+  res.render
+
+})
 
 
 
@@ -136,6 +149,7 @@ module.exports = (app) => {
     var addThumbnail = bookArray[req.params.id].thumbnail
     var addInfoLink = bookArray[req.params.id].infoLink
     var addWebReaderLink = bookArray[req.params.id].webReaderLink
+    var addReview = bookArray[req.params.id].review
 
        /*thisUser =*/ db.Bookshelf.create({
       title: addTitle,
@@ -164,43 +178,63 @@ module.exports = (app) => {
 
     console.log("hit this route")
 
-    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + book_API_key
+    // keyword for filtering by author, title, subject
+    var searchBy 
 
+    var sort = "&orderBy=" + req.body.Sort
+
+    if(!req.body.searchByKeyword)
+      searchBy = ''
+      else
+        searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
+
+    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + searchBy + sort + book_API_key
+
+    console.log(search)
     bookArray = []
 
     axios.get(search).then(data => {
 
-
+  
       i = 0
 
       data.data.items.forEach(item => {
+
+        if(!item.volumeInfo.accessInfo)
+          ifWebReader = null
+          else
+          ifWebReader = item.accessInfo.webReaderLink
+
+          if(!item.volumeInfo.authors)
+            ifAuthor = null
+            else
+            ifAuthor = item.volumeInfo.authors[0]
+
+            if(!item.volumeInfo.industryIdentifiers)
+              ifISBN = null
+              else
+              ifISBN = item.volumeInfo.industryIdentifiers[0].identifier
 
         bookEntry =
         {
           id: i,
           title: item.volumeInfo.title,
-          author: item.volumeInfo.authors[0],
+          author: ifAuthor,
           description: item.volumeInfo.description,
           datePublished: item.volumeInfo.publishedDate,
           pages: item.volumeInfo.pageCount,
           thumbnail: item.volumeInfo.imageLinks.thumbnail,
           infoLink: item.volumeInfo.infoLink,
-          webReaderLink: item.accessInfo.webReaderLink
+          webReaderLink: ifWebReader,
+          ISBN: ifISBN
         };
 
       //  console.log(item.accessInfo.webReaderLink)
 
         i += 1
 
-        var title = item.volumeInfo.title
-        var author = item.volumeInfo.authors[0]
-        var description = item.volumeInfo.description
-        var publishedDate = item.volumeInfo.publishedDate
-        var pages = item.volumeInfo.pageCount
-        var thumbnail = item.volumeInfo.imageLinks.thumbnail;
-
         bookArray.push(bookEntry)
-
+      })
       })
 
 
@@ -208,7 +242,7 @@ module.exports = (app) => {
 
     })
 
-  })
+ 
 
 
 }

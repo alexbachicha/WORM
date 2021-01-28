@@ -48,27 +48,36 @@
 
 
     <div class="row row-cols-1 row-cols-md-4 g-2">
-           {{#each savedBookShelf }}
-        <div class="col bookcard">
-          <div class="card">
-            <div class="card-body">
-              <!-- bar title -->
-             <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> 
-              <h5 class="card-title">{{this.title}}</h5>
-              <a href="{{this.infoLink}}">Buy this book on Google Books</a>
-              <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
-            
-              <!-- book description -->
-              <p class="card-text">{{this.description}}</p>
-            </div>
-          <form  class='form'>
-          </form>
-            <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
+      {{#each savedBookShelf }}
+      <div class="col bookcard">
+        <div class="card">
+          <div class="card-body">
+            <!-- bar title -->
+            <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
+            <h5 class="card-title">{{this.title}}</h5><br>
+            <a href="{{this.infoLink}}">Buy this book on Google Books</a>
+    
+            <!-- <div id="{{this.ISBN}}" style="width: 600px; height: 500px"></div> -->
+            <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
+    
+            <!-- book description -->
+            <p class="card-text">{{this.description}}</p>
           </div>
+            <p class="card-text">{{this.review}}</p>
+          <div class="form-group">
+            <label for="comment">Review / Comments :</label>
+            <textarea class="form-control" rows="5" id="comment" name="{{this.id}}"></textarea>
+          </div>
+          <button type="submit" data-id={{this.id}} class="btn btn-secondary">Save</button>
+          </form>
+          <form class='form'>
+          </form>
+          <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
         </div>
-        {{/each}}
-   
       </div>
+      {{/each}}
+    
+    </div>
 
   <!-- <script>
     $('#exampleModal').on('show.bs.modal', function (event) {
@@ -82,13 +91,31 @@
     })
   </script> -->
 
-  <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
-<script type="text/javascript">
-GBS_insertPreviewButtonPopup('ISBN:9781982137977');
-</script>
+  
+  GBS_insertPreviewButtonPopup('ISBN:9781982137977');
 
-<script>
+
+</script>
+<script type="text/javascript">
+//GBS_insertEmbeddedViewer('ISBN:0738531367',600,500);
+
+
+GBS_insertPreviewButtonPopup('ISBN:0738531367');
+
+  
   console.log('test')
+
+ $(".btn-secondary").on("click", (e) => {
+    e.preventDefault();
+    console.log(`/books/${e.target.dataset.id}`);
+    $.ajax({ 
+      method: "PUT",
+      url: `/books/${e.target.dataset.id}`
+      }).then(data => {
+      console.log("AFTER delete:", data);
+    })
+  });
+ 
   
   $(".btn-danger").on("click", (e) => {
     e.preventDefault();
