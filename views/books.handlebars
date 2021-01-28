@@ -54,8 +54,10 @@
             <div class="card-body">
               <!-- bar title -->
              <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> 
-              <h5 class="card-title">{{this.title}}</h5>
+              <h5 class="card-title">{{this.title}}</h5><br>
               <a href="{{this.infoLink}}">Buy this book on Google Books</a>
+
+      <!--      <div id="{{this.ISBN}}" style="width: 600px; height: 500px"></div> -->
               <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
             
               <!-- book description -->
@@ -82,13 +84,21 @@
     })
   </script> -->
 
-  <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
-<script type="text/javascript">
-GBS_insertPreviewButtonPopup('ISBN:9781982137977');
-</script>
+  
+  GBS_insertPreviewButtonPopup('ISBN:9781982137977');
 
-<script>
+
+</script>
+<script type="text/javascript">
+//GBS_insertEmbeddedViewer('ISBN:0738531367',600,500);
+
+
+GBS_insertPreviewButtonPopup('ISBN:0738531367');
+
+  
   console.log('test')
+
+  $(')
   
   $(".btn-danger").on("click", (e) => {
     e.preventDefault();

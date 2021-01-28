@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         author:  {
-            type: DataTypes.TEXT,
-            allowNull: false,
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         description: {
             type: DataTypes.TEXT,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 
         infoLink: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         webReaderLink: {
             type: DataTypes.STRING,
@@ -42,6 +42,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         completed: {
             type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        ISBN: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        viewerID: {
+            type: DataTypes.STRING,
             allowNull: true,
         }
 
