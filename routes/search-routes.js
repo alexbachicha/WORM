@@ -105,8 +105,12 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
+<<<<<<< HEAD
           webReaderLink: item.webReaderLink,
           review : ''
+=======
+          webReaderLink: item.webReaderLink
+>>>>>>> 033bf30717cd7b4527a72d9da10af904e57f4eed
         }
 
         savedBookShelf.push(tempEntry)
@@ -180,6 +184,7 @@ module.exports = (app) => {
 
     // keyword for filtering by author, title, subject
     var searchBy 
+<<<<<<< HEAD
 
     var sort = "&orderBy=" + req.body.Sort
 
@@ -190,6 +195,18 @@ module.exports = (app) => {
 
     var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + searchBy + sort + book_API_key
 
+=======
+
+    var sort = "&orderBy=" + req.body.Sort
+
+    if(!req.body.searchByKeyword)
+      searchBy = ''
+      else
+        searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
+
+    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + searchBy + sort + book_API_key
+
+>>>>>>> 033bf30717cd7b4527a72d9da10af904e57f4eed
     console.log(search)
     bookArray = []
 
