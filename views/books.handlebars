@@ -48,7 +48,6 @@
 
 
     <div class="row row-cols-1 row-cols-md-4 g-2">
-<<<<<<< HEAD
       {{#each savedBookShelf }}
       <div class="col bookcard">
         <div class="card">
@@ -67,29 +66,10 @@
             <p class="card-text">{{this.review}}</p>
           <div class="form-group">
             <label for="comment">Review / Comments :</label>
-            <textarea class="form-control" rows="5" id="comment" name="{{this.id}}"></textarea>
-=======
-           {{#each savedBookShelf }}
-        <div class="col bookcard">
-          <div class="card">
-            <div class="card-body">
-              <!-- bar title -->
-             <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br> 
-              <h5 class="card-title">{{this.title}}</h5><br>
-              <a href="{{this.infoLink}}">Buy this book on Google Books</a>
-
-      <!--      <div id="{{this.ISBN}}" style="width: 600px; height: 500px"></div> -->
-              <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
-            
-              <!-- book description -->
-              <p class="card-text">{{this.description}}</p>
-            </div>
-          <form  class='form'>
-          </form>
-            <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
->>>>>>> 033bf30717cd7b4527a72d9da10af904e57f4eed
-          </div>
-          <button type="submit" data-id={{this.id}} class="btn btn-secondary">Save</button>
+               <input type="text" placeholder="Search" data-review={{this.review}}>
+          <!--  <input type="text" id="review"></input> -->
+          <button type="submit" data-id={{this.id}} class="btn btn-secondary">Save</button></input>
+           </div>
           </form>
           <form class='form'>
           </form>
@@ -99,6 +79,7 @@
       {{/each}}
     
     </div>
+
 
   <!-- <script>
     $('#exampleModal').on('show.bs.modal', function (event) {
@@ -112,8 +93,6 @@
     })
   </script> -->
 
-  
-  GBS_insertPreviewButtonPopup('ISBN:9781982137977');
 
 
 </script>
@@ -123,11 +102,27 @@
 
 GBS_insertPreviewButtonPopup('ISBN:0738531367');
 
+$(".btn-primary").on("click", (e) => {
+
+ 
+    e.preventDefault();
+
+    console.log(`/books/${e.target.dataset.id}`);
+    $.ajax({ 
+      method: "PUT",
+      url: `/books/${e.target.dataset.id}`
+      }).then(data => {
+      console.log("AFTER delete:", data);g
+    })
+  });
+
   
   console.log('test')
 
  $(".btn-secondary").on("click", (e) => {
     e.preventDefault();
+
+    var thisReview = $('#review').val()
     console.log(`/books/${e.target.dataset.id}`);
     $.ajax({ 
       method: "PUT",
@@ -138,12 +133,6 @@ GBS_insertPreviewButtonPopup('ISBN:0738531367');
   });
  
 
-GBS_insertPreviewButtonPopup('ISBN:0738531367');
-
-  
-  console.log('test')
-
-  $(')
   
   $(".btn-danger").on("click", (e) => {
     e.preventDefault();
