@@ -110,6 +110,7 @@ module.exports = (app) => {
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
           webReaderLink: item.webReaderLink,
+          ISBN : item.ISBN,
           review : ''
         }
 
@@ -188,8 +189,24 @@ module.exports = (app) => {
 
     console.log("get this route")
 
+    // if they didn't put in a search, make it empty
+    if(!req.body.searchTerm)
+      req.body.searchTerm = ''
 
-    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm +  book_API_key
+      
+    var searchBy = "+" + req.body.searchBy + req.body.searchByKeyword
+
+    if(!req.body.searchByKeyword)
+      searchBy = ''
+    else
+      searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
+
+      
+
+
+    var orderBy = "&orderBy=" + req.body.Sort
+
+    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + +searchBy+ orderBy + book_API_key
 
     console.log(search)
  
@@ -199,6 +216,10 @@ module.exports = (app) => {
       // use for IDs
       i = 0
 
+      if(data.data.items){
+
+        
+        bookArray = []
       // loop through the search results and create a book entry for each result
       data.data.items.forEach(item => {
 
@@ -217,15 +238,20 @@ module.exports = (app) => {
             { ifISBN = ''}
         else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
 
+        if(!item.volumeInfo.imageLinks)
+        { ifThumbnail = ''}
+        else
+        {ifThumbnail = item.volumeInfo.imageLinks.thumbnail}
+
         bookEntry =
         {
           id: i,
           title: item.volumeInfo.title,
-          author: item.volumeInfo.authors[0],
+          author: ifAuthor,
           description: item.volumeInfo.description,
           datePublished: item.volumeInfo.publishedDate,
           pages: item.volumeInfo.pageCount,
-          thumbnail: item.volumeInfo.imageLinks.thumbnail,
+          thumbnail: ifThumbnail,
           infoLink : item.volumeInfo.infoLink,
           webReaderLink : ifWebReader,
           ISBN : ifISBN,
@@ -238,6 +264,10 @@ module.exports = (app) => {
         // add entry to search results array
         bookArray.push(bookEntry)
       })
+    }
+    else{ res.render("search") 
+          return 
+        }
 
       // render the search results array
       res.render("search", {bookArray})

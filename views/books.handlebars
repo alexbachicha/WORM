@@ -53,20 +53,22 @@
         <div class="card">
           <div class="card-body">
             <!-- bar title -->
-            <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
+       
             <h5 class="card-title">{{this.title}}</h5><br>
             <a href="{{this.infoLink}}">Buy this book on Google Books</a>
     
             <!-- <div id="{{this.ISBN}}" style="width: 600px; height: 500px"></div> -->
             <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
+                 <a href="{{this.webReaderLink}}">Read a Sample from Book (warning: not all books have viewable samples before buying)
+                 </a><br>
     
             <!-- book description -->
             <p class="card-text">{{this.description}}</p>
           </div>
             <p class="card-text">{{this.review}}</p>
           <div class="form-group">
-            <label for="comment">Review / Comments :</label>
-               <input id="searchBooks" type="text" placeholder="Search" name="review">
+            <label for="comment"> Comments :</label>
+               <input id="searchBooks" type="text" placeholder="comments" data-name="{{this.ISBN}}">
           <!--  <input type="text" id="review"></input> -->
           <button type="submit" data-id={{this.id}} class="btn btn-secondary">Save</button></input>
            </div>
@@ -97,30 +99,16 @@
 
 </script>
 <script type="text/javascript">
-//GBS_insertEmbeddedViewer('ISBN:0738531367',600,500);
 
-
-GBS_insertPreviewButtonPopup('ISBN:0738531367');
-
-$(".btn-primary").on("click", (e) => {
-
- 
-    e.preventDefault();
-
-    console.log(`/books/${e.target.dataset.id}`);
-    $.ajax({ 
-      method: "PUT",
-      url: `/books/${e.target.dataset.id}`
-      }).then(data => {
-      console.log("AFTER delete:", data);g
-    })
-  });
 
   
   console.log('test')
 
  $(".btn-secondary").on("click", (e) => {
     e.preventDefault();
+
+    var strISBN = "ISBN" + `${e.target.dataset.name}`
+  GBS_insertPreviewButtonPopup(strISBN);
 
     var thisReview = $('#review').val()
     console.log(`/books/${e.target.dataset.id}`);
