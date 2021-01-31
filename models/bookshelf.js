@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         pages:  {
             type: DataTypes.INTEGER,
-            defaultValue: "nont listed",
+            defaultValue: 0,
             allowNull: true,
         },
         thumbnail: {
