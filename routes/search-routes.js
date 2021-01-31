@@ -1,6 +1,8 @@
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
+require('dotenv').config();
+
 // Requiring path to so we can use relative routes to our HTML files
 const path = require("path");
 
@@ -11,7 +13,8 @@ const { traceDeprecation } = require("process");
 const bookshelf = require("../models/bookshelf");
 //const { interfaces } = require("mocha");
 
-const book_API_key = "&key=" + "AIzaSyAkvUj8_4TNZZKs824LPeBjoa8UJad7unY"
+
+const book_API_key = "&key=" + process.env.GITHUB_DEVELOPER_KEY
 
 // total search items
 var bookArray = []
@@ -22,12 +25,13 @@ var bookEntry
 // global user variable, will need to save to storage later
 var thisUser = [{}]
 
-var chosenBooksArray = []
 
 var savedBookShelf = []
 
-var addFromSearch = {}
 
+var ifAuthor
+var ifWebReader
+var ifISBN
 
 
 
@@ -65,7 +69,8 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
-          webReaderLink: item.webReaderLink
+          webReaderLink: item.webReaderLink,
+          review: item.review
         }
         savedBookShelf.push(tempEntry)
         console.log(tempEntry)
@@ -105,12 +110,8 @@ module.exports = (app) => {
           pages: item.pages,
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
-<<<<<<< HEAD
           webReaderLink: item.webReaderLink,
           review : ''
-=======
-          webReaderLink: item.webReaderLink
->>>>>>> 033bf30717cd7b4527a72d9da10af904e57f4eed
         }
 
         savedBookShelf.push(tempEntry)
@@ -118,10 +119,10 @@ module.exports = (app) => {
       })
     })
 
-
-    // res.redirect('/books')
       res.render("books", {savedBookShelf})
-    //res.redirect('/books')
+
+
+
 
   })
 
@@ -129,11 +130,15 @@ module.exports = (app) => {
 
     console.log("hitting the put route")
 
-    db.Bookshelf.update({ review: req.body.id}, 
+    console.log(req.body)
+    console.log(req.params.review)
+    console.log(req.params.id)
+
+    db.Bookshelf.update({ review: req.body.review }, 
       {where: { id: req.params.id }
   } )
 
-  res.render
+  res.render("books", {savedBookShelf})
 
 })
 
@@ -153,9 +158,11 @@ module.exports = (app) => {
     var addThumbnail = bookArray[req.params.id].thumbnail
     var addInfoLink = bookArray[req.params.id].infoLink
     var addWebReaderLink = bookArray[req.params.id].webReaderLink
+    // var addISBN = 6767687896789bookArray[req.params.id].ISBN
     var addReview = bookArray[req.params.id].review
+    var addISBN = 49494945
 
-       /*thisUser =*/ db.Bookshelf.create({
+     db.Bookshelf.create({
       title: addTitle,
       author: addAuthor,
       description: addDescription,
@@ -164,6 +171,8 @@ module.exports = (app) => {
       thumbnail: addThumbnail,
       infoLink: addInfoLink,
       webReaderLink: addWebReaderLink,
+      ISBN : addISBN,
+      review : addReview,
       createdAt: req.user.createdAt,
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
@@ -172,9 +181,6 @@ module.exports = (app) => {
     })
 
 
-
-    //   res.render('search', {bookArray, chosenBooks})
-
   })
 
   // search for books
@@ -182,81 +188,61 @@ module.exports = (app) => {
 
     console.log("hit this route")
 
-    // keyword for filtering by author, title, subject
-    var searchBy 
-<<<<<<< HEAD
 
-    var sort = "&orderBy=" + req.body.Sort
 
-    if(!req.body.searchByKeyword)
-      searchBy = ''
-      else
-        searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
+    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm +  book_API_key
 
-    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + searchBy + sort + book_API_key
-
-=======
-
-    var sort = "&orderBy=" + req.body.Sort
-
-    if(!req.body.searchByKeyword)
-      searchBy = ''
-      else
-        searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
-
-    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + searchBy + sort + book_API_key
-
->>>>>>> 033bf30717cd7b4527a72d9da10af904e57f4eed
     console.log(search)
-    bookArray = []
+ 
 
     axios.get(search).then(data => {
 
-  
       i = 0
 
       data.data.items.forEach(item => {
 
-        if(!item.volumeInfo.accessInfo)
-          ifWebReader = null
-          else
-          ifWebReader = item.accessInfo.webReaderLink
+        if(!item.accessInfo)
+        { ifWebReader = ''
+        }
+        else{ ifWebReader = item.accessInfo.webReaderLink}
 
-          if(!item.volumeInfo.authors)
-            ifAuthor = null
-            else
-            ifAuthor = item.volumeInfo.authors[0]
+        if(!item.volumeInfo.authors)
+            {ifAuthor = ''}
+        else{ifAuthor = item.volumeInfo.authors[0] }
 
-            if(!item.volumeInfo.industryIdentifiers)
-              ifISBN = null
-              else
-              ifISBN = item.volumeInfo.industryIdentifiers[0].identifier
+        if(!item.volumeInfo.industryIdentifiers)
+            { ifISBN = ''}
+        else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
 
         bookEntry =
         {
           id: i,
           title: item.volumeInfo.title,
-          author: ifAuthor,
+          author: item.volumeInfo.authors[0],
           description: item.volumeInfo.description,
           datePublished: item.volumeInfo.publishedDate,
           pages: item.volumeInfo.pageCount,
           thumbnail: item.volumeInfo.imageLinks.thumbnail,
-          infoLink: item.volumeInfo.infoLink,
-          webReaderLink: ifWebReader,
-          ISBN: ifISBN
+          infoLink : item.volumeInfo.infoLink,
+          webReaderLink : ifWebReader,
+          ISBN : ifISBN,
+          review : ''
         };
-
-      //  console.log(item.accessInfo.webReaderLink)
 
         i += 1
 
         bookArray.push(bookEntry)
       })
+
+      
+      res.render("search", {bookArray})
       })
 
+      console.log(bookArray)
 
-      res.render('search', { bookArray })
 
+
+  
     })
 
  

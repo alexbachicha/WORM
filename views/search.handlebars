@@ -31,7 +31,6 @@
           <option value='relevance' selected>Relevance</option>
           <option value='newest'>Newest</option>
           </select>
-
       <button type="submit"><i class="fa fa-search"></i></button>
       </form>
 
@@ -43,7 +42,7 @@
      <div class="card bg-light">
       <div class="card-body text-center">
   <a href="{{this.webReaderLink}}">Read a Sample from Book</a><br>
-    <a href="{{this.infoLink}}">Buy this book on Google Books</a>
+    <a href="{{this.infoLink}}">Buy this book on Google Books</a><br>
     <form id='addBook' action="/search/{{this.id}}" method="POST" class='form'>
     <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
       <h2 class="card-text">{{this.title}}</h2>
