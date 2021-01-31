@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "iamroot9",
+    "password": "omnicode",
     "database": "bookshelf",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "iamroot9",
+    "password": "omnicode",
     "database": "bookshelf",
     "host": "127.0.0.1",
     "dialect": "mysql"

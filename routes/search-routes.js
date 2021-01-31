@@ -210,7 +210,7 @@ module.exports = (app) => {
     // if they didn't put in a search, make it empty
     if (!req.body.searchTerm)
       req.body.searchTerm = ''
-7
+
 
       // order by relevance or newest
     var orderBy = "&orderBy=" + req.body.Sort
