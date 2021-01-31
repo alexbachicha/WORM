@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookshelf</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="stylesheets/bookshelf.css">
+    <!-- <script type ="text/javascript" src="public/js/modal.js"></script> -->
+</head>
+
+<body>  
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0 navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" href="homePage.html">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="bookshelf.html">My Bookshelf <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="search.html">Search</a>
+          </li>
+      </ul>
+    </div>
+  </nav> 
+
+  <!-- body -->
+
+  <!-- hero image -->
+  <div class="hero-image">
+    <div class="hero-text">
+      <h1>My Bookshelf</h1>
+      <a href="search.html" type="button" class="btn btn-light">Add New Book</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-light" data-toggle="modal" id="myBtn" data-target="#myModal">
+      Share Your Bookshelf
+    </button>
+    <!-- Modal -->
+    <div id="contact"></div>
+      <div id="contact-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3>Share your favorite books with friends and family by sending them your personalized bookshelf!</h3>
+            </div>
+            <form id="contactForm" name="contact" role="form" action="mailto:youraddr@domain.tld" method="GET">
+              <div class="modal-body">				
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" name="name" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea name="message" class="form-control"></textarea>
+                </div>					
+              </div>
+
+              <div class="modal-footer">					
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="send" class="btn btn-success" id="send">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <pre> </pre>
+
+  <!-- library -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col bookcard">
+          <div class="card">
+            <img src="book-covers-big-2019101610.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <!-- bar title -->
+              <h5 class="card-title">Book title</h5>
+              <!-- book description -->
+              <p class="card-text">Description</p>
+            </div>
+          </div>
+        </div>
+        <div class="col bookcard">
+          <div class="card">
+            <img src="book-covers-big-2019101610.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Book title</h5>
+                <p class="card-text">Description</p>
+            </div>
+          </div>
+        </div>
+        <div class="col bookcard">
+          <div class="card">
+            <img src="book-covers-big-2019101610.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Book title</h5>
+                <p class="card-text">Description</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <pre> </pre>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

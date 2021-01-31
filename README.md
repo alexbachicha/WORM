@@ -1,13 +1,19 @@
 # Project WORM
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](#license) 
+![issues](https://img.shields.io/github/issues/alexbachicha/WORM)
 
+## Description
+
+<img src="public/stylesheets/worm2.png" alt="picture of cartoon worm" width="500"/>
+
+WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library, and share share that bookshelf with other users via email.
 
 ## Table of Contents
-* [Technologies Used](#tech)
 * [Description](#description)
 * [User Story](#UserStory)
 * [Installation](#installation)
+* [Technologies Used](#tech)
 * [License](#license)
 * [Credits](#Credits)
 
@@ -27,19 +33,26 @@ Users can add books to their personal bookshelf library, which will be displayed
 
 ## Installation
 
-To use properly you need to install Node.js and in the terminal you have to use the command 
-``` npm init -y ```
-and then also install the following dependencies 
-``` npm install express ```  to install express
-``` npm install express-handlebars  ``` to install handlebars
-``` npm install mysql ``` to install mysql
-``` npm install dotenv ``` for the environment variable 
-``` npm install passport ``` for authentication
-``` npm install bcryptjs ```  for authentication / password hashing
-``` npm install sequelize ``` for the  sequelize databases
+To use WORM properly you need to install Node.js. In the terminal, run the following command: 
 
+``` 
+npm init -y 
+```
 
-## Tech
+Then, install the following dependencies:
+```
+npm install express to install express
+npm install express-handlebars to install handlebars
+npm install mysql to install mysql
+npm install dotenvfor the environment variable 
+npm install passport for authentication
+npm install bcryptjs for authentication / password hashing
+npm install sequelize for the  sequelize databases
+npm install sequelize for the  sequelize databases
+npm install sequelize for the  sequelize databases
+```
+
+## Technology
 
 * HTML
 * CSS
