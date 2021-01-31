@@ -1,6 +1,7 @@
 # Project WORM
 
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](#license) 
+[!issues](https://img.shields.io/github/issues/alexbachicha/WORM)
 
 ## Description
 
