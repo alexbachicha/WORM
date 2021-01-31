@@ -38,13 +38,15 @@ npm init -y
 
 Then, install the following dependencies:
 ```
-``` npm install express ```  to install express
-``` npm install express-handlebars  ``` to install handlebars
-``` npm install mysql ``` to install mysql
-``` npm install dotenv ``` for the environment variable 
-``` npm install passport ``` for authentication
-``` npm install bcryptjs ```  for authentication / password hashing
-``` npm install sequelize ``` for the  sequelize databases
+npm install express to install express
+npm install express-handlebars to install handlebars
+npm install mysql to install mysql
+npm install dotenvfor the environment variable 
+npm install passport for authentication
+npm install bcryptjs for authentication / password hashing
+npm install sequelize for the  sequelize databases
+npm install sequelize for the  sequelize databases
+npm install sequelize for the  sequelize databases
 ```
 
 ## Technology
