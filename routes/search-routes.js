@@ -1,6 +1,7 @@
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
+// for the api key
 require('dotenv').config();
 
 // Requiring path to so we can use relative routes to our HTML files
@@ -13,7 +14,7 @@ const { traceDeprecation } = require("process");
 const bookshelf = require("../models/bookshelf");
 //const { interfaces } = require("mocha");
 
-
+// google books api key in an environmental variable
 const book_API_key = "&key=" + process.env.GITHUB_DEVELOPER_KEY
 
 // total search items
@@ -22,13 +23,10 @@ var bookArray = []
 // adding single book on bookshelf
 var bookEntry
 
-// global user variable, will need to save to storage later
-var thisUser = [{}]
-
-
+// used to hold the bookshelf database that gets sent to handlebars
 var savedBookShelf = []
 
-
+// variables to catch null values returned from google books api
 var ifAuthor
 var ifWebReader
 var ifISBN
@@ -37,9 +35,12 @@ var ifISBN
 
 module.exports = (app) => {
 
-
+// send the homepage
   app.get("/main", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/homePage.html"));
+
+    //db.User.findOne({where : { UserId : req.user.id }}).then(function(user) { 
+    res.render("homePage") 
+   // res.sendFile(path.join(__dirname, "../public/homePage.html"));
   })
 
   app.get("/search", isAuthenticated, (req, res) => {
@@ -52,7 +53,7 @@ module.exports = (app) => {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/books", isAuthenticated, (req, res) => {
-    db.Bookshelf.findAll({}).then(function (books) {
+    db.Bookshelf.findAll( {where: { UserId : req.user.id } }).then(function (books) {
 
 
       console.log("get route for books")
@@ -75,14 +76,12 @@ module.exports = (app) => {
         savedBookShelf.push(tempEntry)
         console.log(tempEntry)
       })
+
+      res.render("books", { savedBookShelf })
     })
 
 
-    res.render("books", { savedBookShelf })
-
-
   })
-
 
 
   app.delete("/books/:id", isAuthenticated, (req, res) => {
@@ -96,9 +95,9 @@ module.exports = (app) => {
 
     db.Bookshelf.findAll({}).then(function (books) {
 
-      //   console.log("get route for books" )
+         console.log("delete route for books" )
 
-      savedBookShelf = []
+      savedBookShelf.length = 0
 
       books.forEach(item => {
         var tempEntry = {
@@ -111,26 +110,26 @@ module.exports = (app) => {
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
           webReaderLink: item.webReaderLink,
+          ISBN : item.ISBN,
           review : ''
         }
 
         savedBookShelf.push(tempEntry)
         console.log(tempEntry)
       })
-    })
 
       res.render("books", {savedBookShelf})
-
-
-
-
+    })
   })
+
+     
+
 
   app.put("/books/:id", isAuthenticated, (req, res) => {
 
     console.log("hitting the put route")
 
-    console.log(req.body)
+    console.log(req.body.review)
     console.log(req.params.review)
     console.log(req.params.id)
 
@@ -144,12 +143,12 @@ module.exports = (app) => {
 
 
 
-
   app.post("/search/:id", isAuthenticated, (req, res) => {
 
     console.log("put route to add book to shelf" + "entry:" + req.params.id)
 
-    // if(bookArray[req.params.id])
+    // create data to pass as entries to bookshelf database using the
+    // book array index
     var addTitle = bookArray[req.params.id].title
     var addAuthor = bookArray[req.params.id].author
     var addDescription = bookArray[req.params.id].description
@@ -158,10 +157,11 @@ module.exports = (app) => {
     var addThumbnail = bookArray[req.params.id].thumbnail
     var addInfoLink = bookArray[req.params.id].infoLink
     var addWebReaderLink = bookArray[req.params.id].webReaderLink
-    // var addISBN = 6767687896789bookArray[req.params.id].ISBN
+    var addISBN = bookArray[req.params.id].ISBN
     var addReview = bookArray[req.params.id].review
-    var addISBN = 49494945
 
+
+    // create the entry that was clicked
      db.Bookshelf.create({
       title: addTitle,
       author: addAuthor,
@@ -177,30 +177,54 @@ module.exports = (app) => {
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
     }).then(function () {
-      res.render('search', { title: addTitle, thumbnail: addThumbnail, author: addAuthor, pages: addPages,  bookArray} )
-    })
 
+      // render the entry that was chosen as well as the array of search results
+      res.render('search', { title: addTitle, thumbnail: addThumbnail, author: addAuthor,  bookArray} )
+    })
 
   })
 
   // search for books
   app.post("/search", isAuthenticated, (req, res) => {
 
-    console.log("hit this route")
+    console.log("get this route")
+
+    // if they didn't put in a search, make it empty
+    if(!req.body.searchTerm)
+      req.body.searchTerm = ''
+
+      
+    var searchBy = "+" + req.body.searchBy + req.body.searchByKeyword
+
+    if(!req.body.searchByKeyword)
+      searchBy = ''
+    else
+      searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
+
+      
 
 
+    var orderBy = "&orderBy=" + req.body.Sort
 
-    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm +  book_API_key
+    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + +searchBy+ orderBy + book_API_key
 
     console.log(search)
  
-
+    // use axios to call the google books api
     axios.get(search).then(data => {
 
+      // use for IDs
       i = 0
 
+      if(data.data.items){
+
+        
+        bookArray = []
+      // loop through the search results and create a book entry for each result
       data.data.items.forEach(item => {
 
+        // make sure tbhe return result entries exist--some entries have 
+        // different structures in the response object
         if(!item.accessInfo)
         { ifWebReader = ''
         }
@@ -214,38 +238,39 @@ module.exports = (app) => {
             { ifISBN = ''}
         else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
 
+        if(!item.volumeInfo.imageLinks)
+        { ifThumbnail = ''}
+        else
+        {ifThumbnail = item.volumeInfo.imageLinks.thumbnail}
+
         bookEntry =
         {
           id: i,
           title: item.volumeInfo.title,
-          author: item.volumeInfo.authors[0],
+          author: ifAuthor,
           description: item.volumeInfo.description,
           datePublished: item.volumeInfo.publishedDate,
           pages: item.volumeInfo.pageCount,
-          thumbnail: item.volumeInfo.imageLinks.thumbnail,
+          thumbnail: ifThumbnail,
           infoLink : item.volumeInfo.infoLink,
           webReaderLink : ifWebReader,
           ISBN : ifISBN,
           review : ''
         };
 
+        // so each ID is unique in this search
         i += 1
 
+        // add entry to search results array
         bookArray.push(bookEntry)
       })
+    }
+    else{ res.render("search") 
+          return 
+        }
 
-      
+      // render the search results array
       res.render("search", {bookArray})
-      })
-
-      console.log(bookArray)
-
-
-
-  
+      })  
     })
-
- 
-
-
 }
