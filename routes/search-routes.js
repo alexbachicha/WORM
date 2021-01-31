@@ -55,8 +55,6 @@ module.exports = (app) => {
   app.get("/books", isAuthenticated, (req, res) => {
     db.Bookshelf.findAll({ where: { UserId: req.user.id } }).then(function (books) {
 
-      console.log("get route for books")
-
       savedBookShelf = []
 
       books.forEach(item => {
@@ -121,13 +119,9 @@ module.exports = (app) => {
   // adding a review to the books
   app.get("/books/:id", isAuthenticated, (req, res) => {
 
-    console.log("hitting the put route")
 
     var newReview  =  req.query.review 
 
-    console.log(req.query.review)
-    console.log(req.params)
-    console.log(req.params.id)
 
     // add new review to book shelf
     db.Bookshelf.update({ review: newReview },
