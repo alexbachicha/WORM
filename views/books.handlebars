@@ -24,7 +24,6 @@
             <h5 class="card-title">{{this.title}}</h5><br>
             <a href="{{this.infoLink}}">Buy this book on Google Books</a>
     
-            <!-- <div id="{{this.ISBN}}" style="width: 600px; height: 500px"></div> -->
             <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
                  <a href="{{this.webReaderLink}}">Read a Sample from Book (warning: not all books have viewable samples before buying)
                  </a><br>
@@ -35,13 +34,6 @@
           </div>
             <p class="card-text">{{this.review}}</p>
 
-  <!--- Review / comments section -->
-      <form action="/books/{{this.id}}" method="GET" class="form">
-     <textarea rows="3" cols="24" name="review" placeholder="Comments / review"></textarea><br>
-        <button type="button" data-id={{this.is}} class="btn btn-secondary">Submit</button>
-  <!--    <input type="submit" value="submit"/> -->
-      </form>
-
           <form class='form'>
           <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
            </form>
@@ -51,32 +43,15 @@
        </div>
 
 
-   <script type="text/javascript">
-
-    $('#exampleModal').on('show.bs.modal', function (event) {
-
-      event.preventDefault()
-   //   var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.data('whatever') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-    }) 
-  </script> 
-
 <script type="text/javascript">
 
-  console.log('test')
-
+// for adding a review
  $(".btn-secondary").on("click", (e) => {
     e.preventDefault();
 
     var strISBN = "ISBN:" + `${e.target.dataset.name}`
  
   //  var thisReview = $('#review').val()
-
     $.ajax({ 
       method: "GET",
       url: `/books/${e.target.dataset.id}`/thisReview
@@ -86,7 +61,7 @@
     })
   });
  
-  
+ // for deleting books 
   $(".btn-danger").on("click", (e) => {
     e.preventDefault();
     console.log(`/books/${e.target.dataset.id}`);

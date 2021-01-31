@@ -6,24 +6,24 @@
 ## Table of Contents
 * [Technologies Used](#tech)
 * [Description](#description)
-* [User Story](#user story)
+* [User Story](#UserStory)
 * [Installation](#installation)
 * [License](#license)
-* [Questions](#questions)
+* [Credits](#Credits)
 
 ## Description
 
 WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library, and share share that bookshelf with other users via email.
 
-## User Story
+![SampleBookShelf](SampleBookShelf.png)
 
-# The Client
+## User Story
 
 The client is represented as a user who likes to read and likes to keep track of their favorite books. The client can use WORM's book search to find books they would like to read or keep track of.
 
 Books that meet the user's search criteria will be displayed upon search.
 
-Users can add books to their personal bookshelf library, which will be displayed in a separate page of the navigation bar. User's can then email their bookshelf to other users.
+Users can add books to their personal bookshelf library, which will be displayed in a separate page of the navigation bar. 
 
 ## Installation
 
