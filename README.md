@@ -4,7 +4,7 @@
 
 ## Description
 
-<img src="public/stylesheets/worm2.png" alt="picture of cartoon worm" width="200"/>
+<img src="public/stylesheets/worm2.png" alt="picture of cartoon worm" width="500"/>
 
 WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library, and share share that bookshelf with other users via email.
 
