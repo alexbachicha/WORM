@@ -33,3 +33,43 @@ html {
   transform: translate(-50%, -50%);
   color: white;
 }
+
+
+#exampleModalCenter {
+
+  position: center;
+
+}
+  /*
+  all : initial;
+  position:absolute;
+  background-position: initial;
+  background-size: initial;
+  background-repeat: initial;
+  transform: initial;
+  height: initial;
+  background-image: initial;
+  left : initial;
+  top: initial;
+  color: initial;
+  text-align: initial;
+  width: initial;
+  display: initial;
+  align-items: initial;
+  font: initial;
+  justify-content: initial;
+  font-family: initial;
+
+} */
+
+/*height: 100%;
+width: 100%;
+display: flex;
+position: fixed;
+align-items: center;
+justify-content: center;
+font-family: 'Rozha One', serif;
+color:rgb(19, 0, 128);
+font: size 100;
+
+} */

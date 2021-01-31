@@ -9,11 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         author:  {
             type: DataTypes.STRING,
+            defaultValue: "none listed in metadata",
             allowNull: true,
         },
         description: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            defaultValue: "None given",
+            allowNull: true,
         },
         datePublished : {
             type: DataTypes.DATE,
@@ -21,11 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         pages:  {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            defaultValue: "nont listed",
+            allowNull: true,
         },
         thumbnail: {
-                type: DataTypes.STRING,
-                allowNull: false,
+            type: DataTypes.STRING,
+            defaultValue: "no thumbnail available",
+            allowNull: false,
         },
 
         infoLink: {
@@ -44,14 +48,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: true,
         },
-        ISBN: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        viewerID: {
+        isbn: {
             type: DataTypes.STRING,
             allowNull: true,
-        }
+        },
 
     })
 

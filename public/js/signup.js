@@ -39,7 +39,7 @@ $(document).ready(() => {
   }
 
   function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
+    $("#alert .msg").text('Try again');
     $("#alert").fadeIn(500);
   }
 });
