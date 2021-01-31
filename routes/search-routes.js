@@ -17,7 +17,7 @@ const bookshelf = require("../models/bookshelf");
 //const { interfaces } = require("mocha");
 
 // google books api key in an environmental variable
-const book_API_key = "&key=" + AIzaSyAkvUj8_4TNZZKs824LPeBjoa8UJad7unY /*process.env.GITHUB_DEVELOPER_KEY */
+const book_API_key = "&key=" + "AIzaSyAkvUj8_4TNZZKs824LPeBjoa8UJad7unY" /*process.env.GITHUB_DEVELOPER_KEY */
 
 // total search items
 var bookArray = []
