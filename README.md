@@ -2,12 +2,15 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
+## Description
+
+WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library, and share share that bookshelf with other users via email.
 
 ## Table of Contents
-* [Technologies Used](#tech)
 * [Description](#description)
-* [User Story](#user story)
+* [User Story](#userstory)
 * [Installation](#installation)
+* [Technologies Used](#tech)
 * [License](#license)
 * [Questions](#questions)
 
@@ -17,7 +20,7 @@ WORM is an bookshelf application that allows users to search for books by enteri
 
 ## User Story
 
-# The Client
+### The Client
 
 The client is represented as a user who likes to read and likes to keep track of their favorite books. The client can use WORM's book search to find books they would like to read or keep track of.
 
@@ -27,9 +30,14 @@ Users can add books to their personal bookshelf library, which will be displayed
 
 ## Installation
 
-To use properly you need to install Node.js and in the terminal you have to use the command 
-``` npm init -y ```
-and then also install the following dependencies 
+To use WORM properly you need to install Node.js. In the terminal, run the following command: 
+
+``` 
+npm init -y 
+```
+
+Then, install the following dependencies:
+```
 ``` npm install express ```  to install express
 ``` npm install express-handlebars  ``` to install handlebars
 ``` npm install mysql ``` to install mysql
@@ -37,9 +45,9 @@ and then also install the following dependencies
 ``` npm install passport ``` for authentication
 ``` npm install bcryptjs ```  for authentication / password hashing
 ``` npm install sequelize ``` for the  sequelize databases
+```
 
-
-## Tech
+## Technology
 
 * HTML
 * CSS
