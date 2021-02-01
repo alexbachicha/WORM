@@ -1,99 +1,97 @@
+<!-- body -->
 
-  <!-- body -->
+<!-- hero image -->
+<div class="hero-image">
+  <div class="hero-text">
 
-  <!-- hero image -->
-  <div class="hero-image">
-    <div class="hero-text">
-    
-      <h1>My Bookshelf</h1>
-      <a href="/search" type="button" class="btn btn-light">Add New Book</a>
-      <!-- Button trigger modal -->
+    <h1>My Bookshelf</h1>
+    <a href="/search" type="button" class="btn btn-light">Add New Book</a>
+    <!-- Button trigger modal -->
+  </div>
+</div>
+
+
+<!-- library -->
+
+<div class="row row-cols-1 row-cols-md-4 g-2">
+  {{#each savedBookShelf }}
+  <div class="col bookcard">
+    <div class="card">
+      <img src="{{this.thumbnail}}" class="card-img-top" alt="{{this.title}}">
+      <div class="card-body">
+        <!-- bar title -->
+
+        <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}</div>
+        <h6>by: {{this.author}}</h6>
+        <a href="{{this.infoLink}}">Buy this book on Google Books</a><br>
+
+        <a href="{{this.webReaderLink}}">Read a Sample from Book (warning: not all books have viewable samples before
+          buying)
+        </a><br>
+        <button data-id="{{this.isbn}}" class="btn btn-primary" type="button">Embedded Viewer</button>
+
+        <!-- book description, pages, review -->
+        <p class="card-text">{{this.description}}</p>
+        <p class="card-text"># of Pages: {{this.pages}}</p>
+
+        <h5>Personal notes:</h5>
+        <p class="card-text">{{this.review}}</p>
       </div>
-      </div>
 
-
-  <!-- library -->
-
-    <div class="row row-cols-1 row-cols-md-4 g-2">
-      {{#each savedBookShelf }}
-      <div class="col bookcard">
-        <div class="card">
-          <div class="card-body">
-            <!-- bar title -->
-       
-            <h5 class="card-title">{{this.title}}</h5><br>
-            <a href="{{this.infoLink}}">Buy this book on Google Books</a>
-    
-            <!-- <div id="{{this.ISBN}}" style="width: 600px; height: 500px"></div> -->
-            <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
-                 <a href="{{this.webReaderLink}}">Read a Sample from Book (warning: not all books have viewable samples before buying)
-                 </a><br>
-    
-            <!-- book description, pages, review -->
-            <p class="card-text">{{this.description}}</p><br>
-            <p class="card-text"># of Pages: {{this.pages}}</p><br>
-          </div>
-            <p class="card-text">{{this.review}}</p>
-
-  <!--- Review / comments section -->
-      <form action="/books/{{this.id}}" method="GET" class="form">
-     <textarea rows="3" cols="24" name="review" placeholder="Comments / review"></textarea><br>
-        <button type="button" data-id={{this.is}} class="btn btn-secondary">Submit</button>
-  <!--    <input type="submit" value="submit"/> -->
+      <!--- Review / comments section -->
+      <form id="reviewForm" action="/books/{{this.id}}">
+        <textarea rows="3" cols="24" name="review" placeholder="Comments / review"></textarea><br>
+        <!-- <button type="submit" data-id={{this.id}} class="btn btn-secondary">Submit</button> -->
+        <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
       </form>
 
-          <form class='form'>
-          <button type="button" data-id={{this.id}} class="btn btn-danger">"Delete Book from Shelf"</button>
-           </form>
-        </div>
-      </div>
-      {{/each}}
-       </div>
+      <form class='form'>
+        <button type="button" data-id={{this.id}} class="btn btn-danger">Delete Book from Shelf</button>
+      </form>
+    </div>
+  </div>
+  {{/each}}
+</div>
 
-
-   <script type="text/javascript">
-
-    $('#exampleModal').on('show.bs.modal', function (event) {
-
-      event.preventDefault()
-   //   var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.data('whatever') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-    }) 
-  </script> 
 
 <script type="text/javascript">
 
-  console.log('test')
 
- $(".btn-secondary").on("click", (e) => {
-    e.preventDefault();
+$(".btn-primary").on("click", (e) => {
+  e.preventDefault();
 
-    var strISBN = "ISBN:" + `${e.target.dataset.name}`
- 
-  //  var thisReview = $('#review').val()
 
-    $.ajax({ 
-      method: "GET",
-      url: `/books/${e.target.dataset.id}`/thisReview
-      }).then(data => {
-        window.location.reload()
-      console.log("AFTER REVIEW UPDATE:", data);
+    $.ajax({
+      method: "POST",
+      url: `/books/${e.target.dataset.id}`/viewer
+    }).then(data => {
+
+       google.books.load();
+
+      function initialize() {
+        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        viewer.load(`${e.target.dataset.id}`);
+      }
+
+      google.books.setOnLoadCallback(initialize);
+      window.location.reload();
     })
-  });
- 
-  
+
+   
+
+
+ GBS_insertPreviewButtonPopup(`${e.target.dataset.id}`)
+
+})
+
+
   $(".btn-danger").on("click", (e) => {
     e.preventDefault();
     console.log(`/books/${e.target.dataset.id}`);
-    $.ajax({ 
+    $.ajax({
       method: "DELETE",
       url: `/books/${e.target.dataset.id}`
-      }).then(data => {
+    }).then(data => {
       window.location.reload();
     })
   });

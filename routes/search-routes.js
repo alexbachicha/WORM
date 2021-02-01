@@ -52,9 +52,11 @@ module.exports = (app) => {
 
   })
 
+  // get route to display your current bookshelf if any
   app.get("/books", isAuthenticated, (req, res) => {
     db.Bookshelf.findAll({ where: { UserId: req.user.id } }).then(function (books) {
 
+      // reset to rebuild from database
       savedBookShelf = []
 
       books.forEach(item => {
@@ -71,13 +73,21 @@ module.exports = (app) => {
           review: item.review
         }
         savedBookShelf.push(tempEntry)
-        console.log(tempEntry)
       })
 
+      // render the book view with the bookshelf array
       res.render("books", { savedBookShelf })
     })
 
   })
+
+  app.post("/books/:id/viewer", isAuthenticated, (req, res) => {
+
+    db.Bookshelf.findOne({where: { id: req.params.id}}).then(function(found) {
+      var ISBN = found.isbn
+      res.json(ISBN)
+  })
+})
 
 
   // delete route called when clicking the delete button on the bookshelf
@@ -110,6 +120,7 @@ module.exports = (app) => {
 
       })
 
+      // send the new bookshelf array after deleting
       res.json(savedBookShelf);
 
     })
@@ -117,11 +128,11 @@ module.exports = (app) => {
 
 
   // adding a review to the books
-  app.get("/books/:id", isAuthenticated, (req, res) => {
+  app.get("/books/:id/", isAuthenticated, (req, res) => {
 
 
+    // put the captured review in a variable to add to database
     var newReview  =  req.query.review 
-
 
     // add new review to book shelf
     db.Bookshelf.update({ review: newReview },
@@ -146,15 +157,18 @@ module.exports = (app) => {
               infoLink: item.infoLink,
               webReaderLink: item.webReaderLink,
               isbn: item.isbn,
-              review: newReview,
+              review: item.review,
             }
   
             savedBookShelf.push(tempEntry)
-          })
+            console.log("hitting THE PUT PUT PUT")
+          })  
   
         })
   
-        res.render("books", {savedBookShelf});
+      
+        //res.json(savedBookShelf)
+        res.redirect('/books')
   
       })
 
