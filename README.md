@@ -12,16 +12,16 @@
 
 ## Table of Contents
 * [Description](#description)
-* [User Story](#UserStory)
+* [User Story](#User Story)
 * [Installation](#installation)
-* [Technologies Used](#tech)
+* [Tech](#tech)
 * [License](#license)
 * [Questions](#Questions)
 * [Credits](#Credits)
 
 ## Description
 
-TWORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library as well as delete them, view samples of the books if they are available, write their own comments or visit the google books link to buy the book for themselves.
+WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library as well as delete them, view samples of the books if they are available, write their own comments or visit the google books link to buy the book for themselves.
 
 ![SampleBookShelf](SampleBookShelf.png)
 
@@ -54,7 +54,7 @@ npm install bcryptjs for authentication / password hashing
 npm install sequelize for the sequelize databases
 ```
 
-## Technology
+## Tech
 
 * HTML
 * CSS
