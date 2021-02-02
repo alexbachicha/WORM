@@ -81,14 +81,6 @@ module.exports = (app) => {
 
   })
 
-  app.post("/books/:id/viewer", isAuthenticated, (req, res) => {
-
-    db.Bookshelf.findOne({where: { id: req.params.id}}).then(function(found) {
-      var ISBN = found.isbn
-      res.json(ISBN)
-  })
-})
-
 
   // delete route called when clicking the delete button on the bookshelf
   app.delete("/books/:id", isAuthenticated, (req, res) => {

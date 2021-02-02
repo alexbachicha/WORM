@@ -74,6 +74,11 @@ input:focus, textarea:focus {
 textarea {
   /* To properly align multiline text field with their label */
   vertical-align: top;
+  
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+     box-sizing: border-box;         /* Opera/IE 8+ */
+
 
   /* To give enough room to type some text */
   height: 5em;
@@ -93,3 +98,4 @@ button {
      the labels and their text fields */
   margin-left: .5em;
 }
+
