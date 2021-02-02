@@ -12,7 +12,7 @@
 
 ## Table of Contents
 * [Description](#description)
-* [User Story](#User)
+* [User Story](#user-story)
 * [Installation](#installation)
 * [Tech](#tech)
 * [License](#license)
