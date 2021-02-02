@@ -12,7 +12,7 @@
 
 ## Table of Contents
 * [Description](#description)
-* [User Story](#User Story)
+* [User Story](#User)
 * [Installation](#installation)
 * [Tech](#tech)
 * [License](#license)
@@ -25,7 +25,7 @@ WORM is an bookshelf application that allows users to search for books by enteri
 
 ![SampleBookShelf](SampleBookShelf.png)
 
-## User Story
+## User
 
 The client is able to create their own account and sign into it using authentication and a hashed password. 
 
