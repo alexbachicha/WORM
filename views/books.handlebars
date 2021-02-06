@@ -24,11 +24,9 @@
         <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}</div>
         <h6>by: {{this.author}}</h6>
         <a href="{{this.infoLink}}" style="background-color: grey; color:honeydew">Buy this book on Google Books</a><br>
-
-        <a href="{{this.webReaderLink}}">Read a Sample from Book (warning: not all books have viewable samples before
-          buying)
-        </a><br>
-        <div class='isbn' data-id="{{this.isbn}}"> 
+        
+        <!-- This is where we embed the sample reader button -->
+        <div class='isbn' data-id="{{this.isbn}}">     </div>
         
           <script type="text/javascript">
 
@@ -57,7 +55,7 @@
 
           </script>
 
-           </div>
+       
 
         <!-- book description, pages, review -->
         <p class="card-text">{{this.description}}</p>
