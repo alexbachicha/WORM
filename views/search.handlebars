@@ -29,16 +29,47 @@
     <div class="card bg-light">
       <div class="card-body text-center">
         <a href="{{this.webReaderLink}}">Read a Sample from Book (if available)</a><br>
-        <a href="{{this.infoLink}}">Buy this book on Google Books</a><br>
+
+        <a href="{{this.infoLink}}" style="background-color: grey; color:honeydew">Buy this book on Google Books</a><br>
         <form id='addBook' action="/search/{{this.id}}" method="POST" class='form'>
           <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button>
         </form>
         <h2 class="card-text">{{this.title}}</h2>
+        <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.author}}
+        </div>
         <img src="{{this.thumbnail}}">
         <p>{{this.description }}</p>
         <p>Pages: {{this.pages}}</p>
 
-        <h3>{{this.datePublished }} </h3>
+        <h5>Date Published: {{this.datePublished }} </h5>
+
+        <div class='isbn' data-id="{{this.isbn}}">  </div>
+
+          <script type="text/javascript">
+
+            // logic to display google book previews with the search results
+            // get size of array
+            var previewArray = Array.from($('.isbn'))
+
+            // create variables to keep track of where we are in the array
+            var currentBook = previewArray.length
+            var counter = 1
+
+            // loop through the array and only add a button for the last entry in the array
+            $('.isbn').each(function () {
+
+              // if we arent at the last entry then keep looping
+              if (currentBook > counter) {
+                counter++
+              }
+              else {
+                // insert the google preview button using the ISBN number extracted from the data-id of the html element
+                GBS_insertPreviewButtonPopup($(this).attr('data-id'))
+              }
+            });
+
+          </script>
+      
 
       </div>
     </div>

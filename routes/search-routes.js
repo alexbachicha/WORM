@@ -48,6 +48,7 @@ module.exports = (app) => {
   // get route for search -- render the search page if search link is clicked
   app.get("/search", isAuthenticated, (req, res) => {
 
+    // render just the search view
     res.render("search");
 
   })
@@ -70,7 +71,8 @@ module.exports = (app) => {
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
           webReaderLink: item.webReaderLink,
-          review: item.review
+          review: item.review,
+          isbn: item.isbn,
         }
         savedBookShelf.push(tempEntry)
       })
@@ -153,7 +155,6 @@ module.exports = (app) => {
             }
   
             savedBookShelf.push(tempEntry)
-            console.log("hitting THE PUT PUT PUT")
           })  
   
         })
@@ -223,7 +224,6 @@ module.exports = (app) => {
 
     var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + orderBy + book_API_key
 
-    console.log(search)
 
     // use axios to call the google books api
     axios.get(search).then(data => {
@@ -249,7 +249,7 @@ module.exports = (app) => {
     
             if(!item.volumeInfo.industryIdentifiers)
                 { ifISBN = ''}
-            else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
+            else{ifISBN = 'ISBN:' + item.volumeInfo.industryIdentifiers[0].identifier} 
     
             if(!item.volumeInfo.imageLinks)
             { ifThumbnail = ''}

@@ -28,6 +28,36 @@
         <a href="{{this.webReaderLink}}">Read a Sample from Book (warning: not all books have viewable samples before
           buying)
         </a><br>
+        <div class='isbn' data-id="{{this.isbn}}"> 
+        
+          <script type="text/javascript">
+
+            // logic to display google book previews with the search results
+            // get size of array
+            var previewArray = Array.from($('.isbn'))
+
+            // create variables to keep track of where we are in the array
+            var currentBook = previewArray.length
+            var counter = 1
+
+            // loop through the array and only add a button for the last entry in the array
+            $('.isbn').each(function () {
+
+              // if we arent at the last entry then keep looping
+              if (currentBook > counter) {
+                counter++
+              }
+              else {
+                // insert the google preview button using the ISBN number extracted from the data-id of the html element
+
+                console.log($(this).attr('data-id'))
+                GBS_insertPreviewButtonPopup($(this).attr('data-id'))
+              }
+            });
+
+          </script>
+
+           </div>
 
         <!-- book description, pages, review -->
         <p class="card-text">{{this.description}}</p>
@@ -54,6 +84,17 @@
 
 <script type="text/javascript">
 
+  google.books.load();
+
+      function initialize() {
+        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        viewer.load('ISBN:0738531367');
+      }
+
+      google.books.setOnLoadCallback(initialize);
+
+    GBS_insertPreviewButtonPopup('ISBN:0738531367');
+    
 
 // delete button that routes to delete on the backend
   $(".btn-danger").on("click", (e) => {
@@ -63,6 +104,7 @@
       method: "DELETE",
       url: `/books/${e.target.dataset.id}`
     }).then(data => {
+
       window.location.reload();
     })
   });
