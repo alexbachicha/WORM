@@ -71,8 +71,8 @@ module.exports = (app) => {
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
           webReaderLink: item.webReaderLink,
-          review: item.review,
           isbn: item.isbn,
+          review: item.review,
         }
         savedBookShelf.push(tempEntry)
       })

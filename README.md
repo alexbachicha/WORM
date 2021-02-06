@@ -21,7 +21,13 @@
 
 ## Description
 
-WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. Users can then save their favorite books to their own personal bookshelf library as well as delete them, view samples of the books if they are available, write their own comments or visit the google books link to buy the book for themselves. Also using the Google Books API there is an embedded sample reader button that shows if one is available for that particular book. Clicking on the icon will allow you to read a pre-selected portion of the book within the app.
+WORM is an bookshelf application that allows users to search for books by entering a specific query (Title, Author, Exerpt, etc). The user then submits the query, which calls upon the Google Books API that will return an array of books with the corresponding data of the book that was searched for (Title, Author, Published Date, etc.) The user will be able to see the list of books that relate to the search populate on the page. 
+
+![SampleSearch](SampleSearch.png)
+
+
+
+Users can then save their favorite books to their own personal bookshelf library as well as delete them, view samples of the books if they are available, write their own comments or visit the google books link to buy the book for themselves. Also using the Google Books API there is an embedded sample reader button that shows *if one is available* for that particular book. Clicking on the icon will allow you to read a pre-selected portion of the book within the app.
 
 ![SampleBookShelf](SampleBookShelf.png)
 
@@ -75,7 +81,8 @@ npm install sequelize for the sequelize databases
 ## Questions
 
 Email: PiroozWallace@outlook.com
-or visit my portfolio at: GitHub Pages: https://attack-theory.github.io/Portfolio/
+ 
+Visit my portfolio at: GitHub Pages: https://attack-theory.github.io/Portfolio/
 
 ## Credits
 
