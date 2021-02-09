@@ -30,9 +30,20 @@
         <p class="card-text"># of Pages: {{this.pages}}</p>
 
         <!-- This is where we embed the sample reader button -->
-        <div class='isbn' data-id="{{this.isbn}}"> </div>
+        <div class='isbn' data-id="{{this.isbn}}"> 
+        </div>
 
-        <!-- Need this script for the google books preview button -->
+        <h5>Personal comments:</h5>
+        <p class="card-text">{{this.review}}</p>
+      </div>
+
+      <!--- Review / comments section -->
+      <form id="reviewForm" action="/books/{{this.id}}">
+        <textarea name="review" placeholder="Comments / review"></textarea><br>
+        <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
+      </form>
+
+              <!-- Need this script for the google books preview button -->
         <script type="text/javascript">
 
           // logic to display google book previews with the search results
@@ -59,16 +70,6 @@
           });
 
         </script>
-
-        <h5>Personal comments:</h5>
-        <p class="card-text">{{this.review}}</p>
-      </div>
-
-      <!--- Review / comments section -->
-      <form id="reviewForm" action="/books/{{this.id}}">
-        <textarea name="review" placeholder="Comments / review"></textarea><br>
-        <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
-      </form>
 
       <form class='form'>
         <button type="button" data-id={{this.id}} class="btn btn-danger">Delete Book from Shelf</button>
