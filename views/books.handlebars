@@ -16,7 +16,7 @@
 
   <div class="row">
   {{#each savedBookShelf }}
-    <div class="card col-md-6 col-sm-12 col-lg-3 bg-light">=
+    <div class="card col-md-6 col-sm-12 col-lg-3 bg-light">
     <img src="{{this.thumbnail}}" alt="{{this.title}}" style="max-width: 100%;"></img>
      <div class='isbn' data-id="{{this.isbn}}"> </div>
           <script type="text/javascript">
@@ -38,6 +38,7 @@
               }
               else {
                 // insert the google preview button using the ISBN number extracted from the data-id of the html element
+                console.log("Insert button here")
                 GBS_insertPreviewButtonPopup($(this).attr('data-id'))
               }
             });
