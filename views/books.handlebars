@@ -17,6 +17,7 @@
   <div class="row">
   {{#each savedBookShelf }}
     <div class="card col-md-6 col-sm-12 col-lg-3 bg-light">
+      <div class='isbn' data-id="{{this.isbn}}"> </div>
       <img src="{{this.thumbnail}}" alt="{{this.title}}" style="max-width: 100%;"></img>
       <div class="card-body">
         <!-- bar title -->
@@ -30,8 +31,7 @@
         <p class="card-text"># of Pages: {{this.pages}}</p>
 
         <!-- This is where we embed the sample reader button -->
-        <div class='isbn' data-id="{{this.isbn}}"> 
-        </div>
+   
 
         <h5>Personal comments:</h5>
         <p class="card-text">{{this.review}}</p>
@@ -63,7 +63,6 @@
             }
             else {
               // insert the google preview button using the ISBN number extracted from the data-id of the html element
-
               console.log($(this).attr('data-id'))
               GBS_insertPreviewButtonPopup($(this).attr('data-id'))
             }
