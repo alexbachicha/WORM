@@ -43,32 +43,29 @@
         <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
       </form>
 
-              <!-- Need this script for the google books preview button -->
-        <script type="text/javascript">
+          <script type="text/javascript">
 
-          // logic to display google book previews with the search results
-          // get size of array
-          var previewArray = Array.from($('.isbn'))
+            // logic to display google book previews with the search results
+            // get size of array
+            var previewArray = Array.from($('.isbn'))
 
-          // create variables to keep track of where we are in the array
-          var currentBook = previewArray.length
-          var counter = 1
+            // create variables to keep track of where we are in the array
+            var currentBook = previewArray.length
+            var counter = 1
 
-          // loop through the array and only add a button for the last entry in the array
-          $('.isbn').each(function () {
+            // loop through the array and only add a button for the last entry in the array
+            $('.isbn').each(function () {
 
-            // if we arent at the last entry then keep looping
-            if (currentBook > counter) {
-              counter++
-            }
-            else {
-              // insert the google preview button using the ISBN number extracted from the data-id of the html element
-              console.log($(this).attr('data-id'))
-              GBS_insertPreviewButtonPopup($(this).attr('data-id'))
-            }
-          });
-
-        </script>
+              // if we arent at the last entry then keep looping
+              if (currentBook > counter) {
+                counter++
+              }
+              else {
+                // insert the google preview button using the ISBN number extracted from the data-id of the html element
+                GBS_insertPreviewButtonPopup($(this).attr('data-id'))
+              }
+            });
+          </script>
 
       <form class='form'>
         <button type="button" data-id={{this.id}} class="btn btn-danger">Delete Book from Shelf</button>
