@@ -13,11 +13,12 @@
 
 <!-- library -->
 
-
+<div class="container">
   <div class="row">
   {{#each savedBookShelf }}
     <div class="card col-md-6 col-sm-12 col-lg-3 bg-light">
-    <img src="{{this.thumbnail}}" alt="{{this.title}}" style="max-width: 100%;"></img>
+    <div class="card-body">
+    <img src="{{this.thumbnail}}" alt="{{this.title}}">
      <div class='isbn' data-id="{{this.isbn}}"> </div>
           <script type="text/javascript">
 
@@ -44,7 +45,7 @@
             });
           </script>
   
-      <div class="card-body">
+
         <!-- bar title -->
         <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}
         </div>
@@ -75,8 +76,7 @@
     </div> 
   {{/each}}
   </div>
-
-
+  </div>
 
 
 <script type="text/javascript">
