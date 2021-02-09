@@ -44,12 +44,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        completed: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
         isbn: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: true,
         },
 
