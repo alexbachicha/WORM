@@ -13,11 +13,10 @@
 
 <!-- library -->
 
-<div class="container">
-  <div class="card">
+<!--<div class="container"> -->
+ <!-- <div class="row"> -->
   {{#each savedBookShelf }}
-    <div class="col-md-6 col-sm-12 col-lg-3 bg-light">
-    <div class="card-body">
+   <!-- <div class="card col-md-6 col-sm-12 col-lg-3 bg-light"> -->
     <img src="{{this.thumbnail}}" alt="{{this.title}}">
      <div class='isbn' data-id="{{this.isbn}}"> </div>
           <script type="text/javascript">
@@ -45,7 +44,7 @@
             });
           </script>
   
-
+      <div class="card-body"></div>
         <!-- bar title -->
         <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}
         </div>
@@ -75,22 +74,8 @@
     </div>
     </div> 
   {{/each}}
-  </div>
-  </div>
+  <!--</div> -->
+  <!-- </div> -->
 
 
-<script type="text/javascript">
 
-  // delete button that routes to delete on the backend
-  $(".btn-danger").on("click", (e) => {
-    e.preventDefault();
-    console.log(`/books/${e.target.dataset.id}`);
-    $.ajax({
-      method: "DELETE",
-      url: `/books/${e.target.dataset.id}`
-    }).then(data => {
-
-      window.location.reload();
-    })
-  });
-</script>
