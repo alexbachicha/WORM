@@ -159,8 +159,6 @@ module.exports = (app) => {
   
         })
   
-      
-        //res.json(savedBookShelf)
         res.redirect('/books')
   
       })
@@ -196,9 +194,8 @@ module.exports = (app) => {
       thumbnail: addThumbnail,
       infoLink: addInfoLink,
       webReaderLink: addWebReaderLink,
-      review: addReview,
-      completed: false,
       isbn: addISBN,
+      review: addReview,
       createdAt: req.user.createdAt,
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
