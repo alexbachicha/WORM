@@ -16,33 +16,9 @@
 
   <div class="row">
   {{#each savedBookShelf }}
-    <div class="card col-md-6 col-sm-12 col-lg-3 bg-light">
-      <div class='isbn' data-id="{{this.isbn}}"> </div>
-      <img src="{{this.thumbnail}}" alt="{{this.title}}" style="max-width: 100%;"></img>
-      <div class="card-body">
-        <!-- bar title -->
-        <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}
-        </div>
-        <h6>by: {{this.author}}</h6>
-        <a href="{{this.infoLink}}" style="background-color: grey; color:honeydew">Buy this book on Google Books</a><br>
-
-        <!-- book description, pages, review -->
-        <p class="card-text">{{this.description}}</p>
-        <p class="card-text"># of Pages: {{this.pages}}</p>
-
-        <!-- This is where we embed the sample reader button -->
-   
-
-        <h5>Personal comments:</h5>
-        <p class="card-text">{{this.review}}</p>
-      </div>
-
-      <!--- Review / comments section -->
-      <form id="reviewForm" action="/books/{{this.id}}">
-        <textarea name="review" placeholder="Comments / review"></textarea><br>
-        <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
-      </form>
-
+    <div class="card col-md-6 col-sm-12 col-lg-3 bg-light">=
+    <img src="{{this.thumbnail}}" alt="{{this.title}}" style="max-width: 100%;"></img>
+     <div class='isbn' data-id="{{this.isbn}}"> </div>
           <script type="text/javascript">
 
             // logic to display google book previews with the search results
@@ -66,14 +42,39 @@
               }
             });
           </script>
+  
+      <div class="card-body">
+        <!-- bar title -->
+        <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}
+        </div>
+        <h6>by: {{this.author}}</h6>
+        <a href="{{this.infoLink}}" style="background-color: grey; color:honeydew">Buy this book on Google Books</a><br>
+
+        <!-- book description, pages, review -->
+        <p class="card-text">{{this.description}}</p>
+        <p class="card-text"># of Pages: {{this.pages}}</p>
+
+        <!-- This is where we embed the sample reader button -->
+   
+
+        <h5>Personal comments:</h5>
+        <p class="card-text">{{this.review}}</p>
+
+
+      <!--- Review / comments section -->
+      <form id="reviewForm" action="/books/{{this.id}}">
+        <textarea name="review" placeholder="Comments / review"></textarea><br>
+        <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
+      </form>
 
       <form class='form'>
         <button type="button" data-id={{this.id}} class="btn btn-danger">Delete Book from Shelf</button>
       </form>
+    </div>
     </div> 
   {{/each}}
   </div>
-  </div>
+
 
 
 
