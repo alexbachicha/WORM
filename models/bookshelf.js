@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         },
         isbn: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
 
