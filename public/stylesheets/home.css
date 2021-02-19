@@ -10,8 +10,8 @@ body {
   position: fixed;
   align-items: center;
   justify-content: center;
-  font-family: Arial, bold;
-  color: ghostwhite;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: purple;
   font-size: 80px;
   text-shadow: 3px 3px black;
   padding-bottom: 500px;
