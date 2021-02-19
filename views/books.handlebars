@@ -16,8 +16,8 @@
 
   <div class="row">
   {{#each savedBookShelf }}
-    <div class="card col-md-4 col-sm-12 col-lg-3 ">
-      <img src="{{this.thumbnail}}" alt="{{this.title}}">
+    <div class="card col-md-4 col-sm-12 col-lg-3">
+      <img class="bookshelf" src="{{this.thumbnail}}" alt="{{this.title}}">
       <div class="card-body">
         <!-- bar title -->
         <div class="card-title" style="font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;">{{this.title}}
@@ -64,8 +64,8 @@
       </div>
 
       <!--- Review / comments section -->
-      <form id="reviewForm" action="/books/{{this.id}}">
-        <textarea name="review" placeholder="Comments / review"></textarea><br>
+      <form class="reviewFormClass" id="reviewForm" action="/books/{{this.id}}">
+        <textarea class="reviewInput" name="review" placeholder="Comments / review"></textarea><br>
         <button data-id={{this.id}} class="btn btn-secondary" type="submit">Submit</button>
       </form>
 
