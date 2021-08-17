@@ -7,11 +7,13 @@ require('dotenv').config();
 // Requiring path to so we can use relative routes to our HTML files
 const path = require("path");
 
+// include our databases (user and bookshelf)
 const db = require('../models')
 
 const axios = require('axios');
 const { traceDeprecation } = require("process");
 const bookshelf = require("../models/bookshelf");
+
 //const { interfaces } = require("mocha");
 
 // google books api key in an environmental variable
@@ -32,29 +34,26 @@ var ifWebReader
 var ifISBN
 
 
-
 module.exports = (app) => {
 
-// send the homepage
+  // render the main splash page view
+  // Here we've add our isAuthenticated middleware to this route.
   app.get("/main", isAuthenticated, (req, res) => {
 
-    //db.User.findOne({where : { UserId : req.user.id }}).then(function(user) { 
-    res.render("homePage") 
-   // res.sendFile(path.join(__dirname, "../public/homePage.html"));
+    res.render("homePage")
+
   })
 
+
+  // get route for search -- render the search page if search link is clicked
   app.get("/search", isAuthenticated, (req, res) => {
 
-    console.log("hitting the get /search")
     res.render("search");
+
   })
 
-
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/books", isAuthenticated, (req, res) => {
-    db.Bookshelf.findAll( {where: { UserId : req.user.id } }).then(function (books) {
-
+    db.Bookshelf.findAll({ where: { UserId: req.user.id } }).then(function (books) {
 
       console.log("get route for books")
 
@@ -80,72 +79,98 @@ module.exports = (app) => {
       res.render("books", { savedBookShelf })
     })
 
-
   })
 
 
+  // delete route called when clicking the delete button on the bookshelf
   app.delete("/books/:id", isAuthenticated, (req, res) => {
     db.Bookshelf.destroy({ where: { id: req.params.id } }).then(function (deleted) {
 
-      console.log("destroying" + deleted)
 
-      savedBookShelf.splice(req.params.id, 1)
+      // build the bookshelf array from the database
+      db.Bookshelf.findAll({}).then(function (books) {
 
-    })
+        savedBookShelf = []
 
-    db.Bookshelf.findAll({}).then(function (books) {
+        books.forEach(item => {
+          var tempEntry = {
+            id: item.id,
+            title: item.title,
+            author: item.author,
+            description: item.description,
+            datePublished: item.datePublished,
+            pages: item.pages,
+            thumbnail: item.thumbnail,
+            infoLink: item.infoLink,
+            webReaderLink: item.webReaderLink,
+            isbn: item.isbn,
+            review: item.review,
+          }
 
-         console.log("delete route for books" )
+          savedBookShelf.push(tempEntry)
+        })
 
-      savedBookShelf.length = 0
-
-      books.forEach(item => {
-        var tempEntry = {
-          id: item.id,
-          title: item.title,
-          author: item.author,
-          description: item.description,
-          datePublished: item.datePublished,
-          pages: item.pages,
-          thumbnail: item.thumbnail,
-          infoLink: item.infoLink,
-          webReaderLink: item.webReaderLink,
-          ISBN : item.ISBN,
-          review : ''
-        }
-
-        savedBookShelf.push(tempEntry)
-        console.log(tempEntry)
       })
 
-      res.render("books", {savedBookShelf})
+      res.json(savedBookShelf);
+
     })
   })
 
-     
 
-
-  app.put("/books/:id", isAuthenticated, (req, res) => {
+  // adding a review to the books
+  app.get("/books/:id", isAuthenticated, (req, res) => {
 
     console.log("hitting the put route")
 
-    console.log(req.body.review)
-    console.log(req.params.review)
+    var newReview  =  req.query.review 
+
+    console.log(req.query.review)
+    console.log(req.params)
     console.log(req.params.id)
 
-    db.Bookshelf.update({ review: req.body.review }, 
-      {where: { id: req.params.id }
-  } )
+    // add new review to book shelf
+    db.Bookshelf.update({ review: newReview },
+      {
+        where: { id: req.params.id }
+      }).then(function(dbBook) {
 
-  res.render("books", {savedBookShelf})
+        // build the bookshelf array from the database
+        db.Bookshelf.findAll({}).then(function (books) {
 
-})
+          savedBookShelf = []
+  
+          books.forEach(item => {
+            var tempEntry = {
+              id: item.id,
+              title: item.title,
+              author: item.author,
+              description: item.description,
+              datePublished: item.datePublished,
+              pages: item.pages,
+              thumbnail: item.thumbnail,
+              infoLink: item.infoLink,
+              webReaderLink: item.webReaderLink,
+              isbn: item.isbn,
+              review: newReview,
+            }
+  
+            savedBookShelf.push(tempEntry)
+          })
+  
+        })
+  
+        res.render("books", {savedBookShelf});
+  
+      })
+
+    })
+      
 
 
-
+   // add book to shelf
   app.post("/search/:id", isAuthenticated, (req, res) => {
 
-    console.log("put route to add book to shelf" + "entry:" + req.params.id)
 
     // create data to pass as entries to bookshelf database using the
     // book array index
@@ -157,12 +182,11 @@ module.exports = (app) => {
     var addThumbnail = bookArray[req.params.id].thumbnail
     var addInfoLink = bookArray[req.params.id].infoLink
     var addWebReaderLink = bookArray[req.params.id].webReaderLink
-    var addISBN = bookArray[req.params.id].ISBN
+    var addISBN = bookArray[req.params.id].isbn
     var addReview = bookArray[req.params.id].review
 
-
     // create the entry that was clicked
-     db.Bookshelf.create({
+    db.Bookshelf.create({
       title: addTitle,
       author: addAuthor,
       description: addDescription,
@@ -171,15 +195,16 @@ module.exports = (app) => {
       thumbnail: addThumbnail,
       infoLink: addInfoLink,
       webReaderLink: addWebReaderLink,
-      ISBN : addISBN,
-      review : addReview,
+      review: addReview,
+      completed: false,
+      isbn: addISBN,
       createdAt: req.user.createdAt,
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
     }).then(function () {
 
       // render the entry that was chosen as well as the array of search results
-      res.render('search', { title: addTitle, thumbnail: addThumbnail, author: addAuthor,  bookArray} )
+      res.render('search', { title: addTitle, thumbnail: addThumbnail, author: addAuthor, bookArray })
     })
 
   })
@@ -187,61 +212,49 @@ module.exports = (app) => {
   // search for books
   app.post("/search", isAuthenticated, (req, res) => {
 
-    console.log("get this route")
 
     // if they didn't put in a search, make it empty
-    if(!req.body.searchTerm)
+    if (!req.body.searchTerm)
       req.body.searchTerm = ''
+7
 
-      
-    var searchBy = "+" + req.body.searchBy + req.body.searchByKeyword
-
-    if(!req.body.searchByKeyword)
-      searchBy = ''
-    else
-      searchBy = "+" + req.body.FilterBy + req.body.searchByKeyword
-
-      
-
-
+      // order by relevance or newest
     var orderBy = "&orderBy=" + req.body.Sort
 
-    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + +searchBy+ orderBy + book_API_key
+    var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + orderBy + book_API_key
 
     console.log(search)
- 
+
     // use axios to call the google books api
     axios.get(search).then(data => {
 
       // use for IDs
       i = 0
 
-      if(data.data.items){
+      if(data.data){
 
-        
-        bookArray = []
+      bookArray = []
       // loop through the search results and create a book entry for each result
       data.data.items.forEach(item => {
 
-        // make sure tbhe return result entries exist--some entries have 
+        // make sure the return result entries exist--some entries have 
         // different structures in the response object
-        if(!item.accessInfo)
-        { ifWebReader = ''
-        }
-        else{ ifWebReader = item.accessInfo.webReaderLink}
-
-        if(!item.volumeInfo.authors)
-            {ifAuthor = ''}
-        else{ifAuthor = item.volumeInfo.authors[0] }
-
-        if(!item.volumeInfo.industryIdentifiers)
-            { ifISBN = ''}
-        else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
-
-        if(!item.volumeInfo.imageLinks)
-        { ifThumbnail = ''}
-        else
-        {ifThumbnail = item.volumeInfo.imageLinks.thumbnail}
+            if(!item.accessInfo)
+            { ifWebReader = ''}
+            else{ ifWebReader = item.accessInfo.webReaderLink}
+    
+            if(!item.volumeInfo.authors)
+                {ifAuthor = ''}
+            else{ifAuthor = item.volumeInfo.authors[0] }
+    
+            if(!item.volumeInfo.industryIdentifiers)
+                { ifISBN = ''}
+            else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
+    
+            if(!item.volumeInfo.imageLinks)
+            { ifThumbnail = ''}
+            else
+            {ifThumbnail = item.volumeInfo.imageLinks.thumbnail} 
 
         bookEntry =
         {
@@ -252,10 +265,10 @@ module.exports = (app) => {
           datePublished: item.volumeInfo.publishedDate,
           pages: item.volumeInfo.pageCount,
           thumbnail: ifThumbnail,
-          infoLink : item.volumeInfo.infoLink,
-          webReaderLink : ifWebReader,
-          ISBN : ifISBN,
-          review : ''
+          infoLink: item.volumeInfo.infoLink,
+          webReaderLink: item.accessInfo.webReaderLink,
+          isbn: ifISBN,
+          review: ''
         };
 
         // so each ID is unique in this search
@@ -265,12 +278,9 @@ module.exports = (app) => {
         bookArray.push(bookEntry)
       })
     }
-    else{ res.render("search") 
-          return 
-        }
 
       // render the search results array
-      res.render("search", {bookArray})
-      })  
+      res.render("search", { bookArray })
     })
+  })
 }

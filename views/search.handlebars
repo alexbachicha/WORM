@@ -1,60 +1,47 @@
- 
- <!-- show the book that was chosen to add -->
-
- <div class="hero-image">
-   <h3 style="color: blanchedalmond;">You added: </h3><br>
-    <h2 style="color: floralwhite;">{{this.title}}</h2><br>
-    <h4 style="color:blanchedalmond;">{{this.author}}</h4>
-    <img src="{{this.thumbnail}}">
-  </div>
+<!-- show the book that was chosen to add -->
+<div class="hero-image">
+  <h3 style="color: blanchedalmond;">You added: </h3><br>
+  <h2 style="color: floralwhite;">{{this.title}}</h2><br>
+  <h4 style="color:blanchedalmond;">{{this.author}}</h4>
+  <img src="{{this.thumbnail}}">
+</div>
 
 
-    <!-- search bar -->
-
-       <h2 style="color:darkslategrey; text-align:center">Search for Books</h2>
-
-       <!-- Google books form with filters and sort functions -->
-      <form id='searchForm' type="search" action="/search" method="POST" class='form' style='text-align:center'>
-
-      <!-- General string to use for search, could be almost anything, more specific filters below -->
-      <input id="searchBooks" type="text" placeholder="Keyword" name="searchTerm"></input>
-  
-  <!--This tells the search whether to filter by author, title or category -->
-          <select name="FilterBy" id="searchBy">
-          <option value="inauthor:" selected>By Author</option>
-          <option value="intitle:">By Title</option>
-          <option value="subject:">By Subject/Category</option>
-          </select>
-    <!-- this keyword is the title, author or subject to filter by -->
-          <input id="searchByKey" type="text" placeholder="author/title/subject " name="searchByKeyword"></input>
-          
-          <select name='Sort'>
-          <option value='relevance' selected>Relevance</option>
-          <option value='newest'>Newest</option>
-          </select>
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
+<!-- search bar -->
+<h2 style="color:darkslategrey; text-align:center">Search for Books</h2>
+<!-- Google books form with filters and sort functions -->
+<form id='searchForm' type="search" action="/search" method="POST" class='form' style='text-align:center'>
+  <!-- General string to use for search, could be almost anything -->
+  <input id="searchBooks" type="text" placeholder="Keyword" name="searchTerm"></input>
+  <!--How to sort the list, relevance or newest -->
+  <select name='Sort'>
+    <option value='relevance' selected>Relevance</option>
+    <option value='newest'>Newest</option>
+  </select>
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
 
 
-   <!--<ul class="list-group list-group-flush"> -->
-    <div class="container">  
-    <div class="card">
+<!--Array of books found in the search -->
+<div class="container">
+  <div class="card">
     {{#each bookArray }}
-     <div class="card bg-light">
+    <div class="card bg-light">
       <div class="card-body text-center">
-  <a href="{{this.webReaderLink}}">Read a Sample from Book (if available)</a><br>
-    <a href="{{this.infoLink}}">Buy this book on Google Books</a><br>
-    <form id='addBook' action="/search/{{this.id}}" method="POST" class='form'>
-    <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button></form>
-      <h2 class="card-text">{{this.title}}</h2>
-    <img src="{{this.thumbnail}}">
-   <p>{{this.description }}</p>
-    <p>Pages: {{this.pages}}</p>
-    
-    <h3>{{this.datePublished }} </h3>
+        <a href="{{this.webReaderLink}}">Read a Sample from Book (if available)</a><br>
+        <a href="{{this.infoLink}}">Buy this book on Google Books</a><br>
+        <form id='addBook' action="/search/{{this.id}}" method="POST" class='form'>
+          <button type="submit" data-id="{{this.id}}">Add Book to your Shelf</button>
+        </form>
+        <h2 class="card-text">{{this.title}}</h2>
+        <img src="{{this.thumbnail}}">
+        <p>{{this.description }}</p>
+        <p>Pages: {{this.pages}}</p>
+
+        <h3>{{this.datePublished }} </h3>
 
       </div>
     </div>
     {{/each }}
-    </div>
-    </div>
+  </div>
+</div>
