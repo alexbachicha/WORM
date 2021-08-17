@@ -1,6 +1,6 @@
 # WORM
 
-![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](#license) 
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Issues](https://img.shields.io/github/issues/alexbachicha/WORM)
 
 <img src="public/stylesheets/worm2.png" alt="picture of cartoon worm" width="500"/>
