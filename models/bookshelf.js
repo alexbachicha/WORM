@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         pages:  {
             type: DataTypes.INTEGER,
-            defaultValue: "nont listed",
+            defaultValue: 0,
             allowNull: true,
         },
         thumbnail: {
@@ -42,10 +42,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         review: {
             type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        completed: {
-            type: DataTypes.BOOLEAN,
             allowNull: true,
         },
         isbn: {

@@ -17,7 +17,7 @@ const bookshelf = require("../models/bookshelf");
 //const { interfaces } = require("mocha");
 
 // google books api key in an environmental variable
-const book_API_key = "&key=" + process.env.GITHUB_DEVELOPER_KEY
+const book_API_key = "&key=" + "AIzaSyAkvUj8_4TNZZKs824LPeBjoa8UJad7unY" /*process.env.GITHUB_DEVELOPER_KEY */
 
 // total search items
 var bookArray = []
@@ -48,15 +48,16 @@ module.exports = (app) => {
   // get route for search -- render the search page if search link is clicked
   app.get("/search", isAuthenticated, (req, res) => {
 
+    // render just the search view
     res.render("search");
 
   })
 
+  // get route to display your current bookshelf if any
   app.get("/books", isAuthenticated, (req, res) => {
     db.Bookshelf.findAll({ where: { UserId: req.user.id } }).then(function (books) {
 
-      console.log("get route for books")
-
+      // reset to rebuild from database
       savedBookShelf = []
 
       books.forEach(item => {
@@ -70,12 +71,13 @@ module.exports = (app) => {
           thumbnail: item.thumbnail,
           infoLink: item.infoLink,
           webReaderLink: item.webReaderLink,
-          review: item.review
+          isbn: item.isbn,
+          review: item.review,
         }
         savedBookShelf.push(tempEntry)
-        console.log(tempEntry)
       })
 
+      // render the book view with the bookshelf array
       res.render("books", { savedBookShelf })
     })
 
@@ -112,6 +114,7 @@ module.exports = (app) => {
 
       })
 
+      // send the new bookshelf array after deleting
       res.json(savedBookShelf);
 
     })
@@ -119,15 +122,11 @@ module.exports = (app) => {
 
 
   // adding a review to the books
-  app.get("/books/:id", isAuthenticated, (req, res) => {
+  app.get("/books/:id/", isAuthenticated, (req, res) => {
 
-    console.log("hitting the put route")
 
+    // put the captured review in a variable to add to database
     var newReview  =  req.query.review 
-
-    console.log(req.query.review)
-    console.log(req.params)
-    console.log(req.params.id)
 
     // add new review to book shelf
     db.Bookshelf.update({ review: newReview },
@@ -152,15 +151,15 @@ module.exports = (app) => {
               infoLink: item.infoLink,
               webReaderLink: item.webReaderLink,
               isbn: item.isbn,
-              review: newReview,
+              review: item.review,
             }
   
             savedBookShelf.push(tempEntry)
-          })
+          })  
   
         })
   
-        res.render("books", {savedBookShelf});
+        res.redirect('/books')
   
       })
 
@@ -195,9 +194,8 @@ module.exports = (app) => {
       thumbnail: addThumbnail,
       infoLink: addInfoLink,
       webReaderLink: addWebReaderLink,
-      review: addReview,
-      completed: false,
       isbn: addISBN,
+      review: addReview,
       createdAt: req.user.createdAt,
       updatedAt: req.user.updatedAt,
       UserId: req.user.id
@@ -216,14 +214,13 @@ module.exports = (app) => {
     // if they didn't put in a search, make it empty
     if (!req.body.searchTerm)
       req.body.searchTerm = ''
-7
+
 
       // order by relevance or newest
     var orderBy = "&orderBy=" + req.body.Sort
 
     var search = "https://www.googleapis.com/books/v1/volumes?q=" + req.body.searchTerm + orderBy + book_API_key
 
-    console.log(search)
 
     // use axios to call the google books api
     axios.get(search).then(data => {
@@ -249,7 +246,7 @@ module.exports = (app) => {
     
             if(!item.volumeInfo.industryIdentifiers)
                 { ifISBN = ''}
-            else{ifISBN = item.volumeInfo.industryIdentifiers[0].identifier} 
+            else{ifISBN = 'ISBN:' + item.volumeInfo.industryIdentifiers[0].identifier} 
     
             if(!item.volumeInfo.imageLinks)
             { ifThumbnail = ''}
